@@ -1,9 +1,38 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 export default function Login() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+
+  const navigate = useNavigate();
+
+  const TEACHER_EMAIL = "teacher@gmail.com";
+  const TEACHER_PASS = "teacher123";
+
+  const STUDENT_EMAIL = "student@gmail.com";
+  const STUDENT_PASS = "student123";
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // Teacher Login
+    if(email === TEACHER_EMAIL && password === TEACHER_PASS) {
+      navigate("/");
+      return;
+    }
+
+    // Student Login
+    if(email === STUDENT_EMAIL && password === STUDENT_PASS) {
+      navigate("/student-dashboard");
+      return;
+    }
+
+    setError("Invalid email or password");
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
@@ -41,7 +70,7 @@ export default function Login() {
             </div>
 
             {/* Form */}
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleLogin}>
               <div className="space-y-4">
                 
                 {/* Email Input */}
@@ -52,6 +81,8 @@ export default function Login() {
                       type="email" 
                       placeholder="Enter your email" 
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all pl-10"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                   </div>
@@ -65,6 +96,8 @@ export default function Login() {
                       type={showPassword ? "text" : "password"} 
                       placeholder="••••••••" 
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all pl-10 pr-10"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <button 
@@ -88,6 +121,11 @@ export default function Login() {
                   </Link>
                 </div>
               </div>
+
+              {/* Error Message */}
+              {error && (
+                <p className="text-red-500 text-sm font-medium text-center">{error}</p>
+              )}
 
               <button className="w-full py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 shadow-md transition-all active:scale-[0.98]">
                 Sign in

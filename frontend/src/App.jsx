@@ -1,6 +1,6 @@
 // frontend/src/App.jsx
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import MarkAttendance from "./pages/MarkAttendance";
 import StudentList from "./pages/StudentList";
@@ -12,13 +12,32 @@ import Settings from "./pages/Settings";
 import AddStudents from "./pages/AddStudents";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import StudentDashboard from "./students/pages/StudentDashboard.jsx"
+import StudentSubjects from "./students/pages/StudentSubjects.jsx";
+import StudentForecast from "./students/pages/StudentForecast.jsx";
+import StudentProfile from "./students/pages/StudentProfile.jsx"
+
+
+const studentRoutes = [
+  "/student-dashboard",
+  "/student-subjects",
+  "/student-forecast",
+  "/student-profile",
+  "/login",
+  "/register"
+];
 
 export default function App() {
   const { theme, setTheme } = useTheme();
+  const location = useLocation();
+
+  const hideNavbar = studentRoutes.includes(location.pathname);
+  
+
 
   return (
     <div className="min-h-screen">
-      <Header theme={theme} setTheme={setTheme} />
+      {!hideNavbar && <Header theme={theme} setTheme={setTheme} />}
 
       <div className="p-6">
         <Routes>
@@ -33,6 +52,11 @@ export default function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="*" element={<div>404 Not Found</div>} />
 
+          {/* Students routes */}
+          <Route path="/student-dashboard" element={<StudentDashboard/>}/>
+          <Route path="/student-subjects" element={<StudentSubjects/>}/>
+          <Route path="/student-forecast" element={<StudentForecast/>}/>
+          <Route path="/student-profile" element={<StudentProfile/>}/>
 
         </Routes>
       </div>
