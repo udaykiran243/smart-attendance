@@ -4,6 +4,12 @@ What feature, fix, or improvement did you add?
 
 ---
 
+# 🔗 Linked Issue
+Write the issue number this PR is linked with.  
+(Example: **Closes #12** — this automatically links & closes the issue when PR is merged)
+
+---
+
 # 🛠 Changes Made
 List the key changes included in this PR:
 
