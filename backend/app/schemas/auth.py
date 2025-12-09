@@ -24,3 +24,5 @@ class RegisterRequest(BaseModel):
     # Teacher 
     employee_id: Optional[str] = None
     phone: Optional[str] = None
+    
+    is_verified: bool = False

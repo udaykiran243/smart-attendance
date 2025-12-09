@@ -16,6 +16,8 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
+    console.log("handle Submit called");
+
     try{
       const res = await fetch("http://127.0.0.1:8000/auth/login", {
         method: "POST",
@@ -31,12 +33,13 @@ export default function Login() {
       }
 
       const data = await res.json();
+      console.log(data);
 
       if(remember) localStorage.setItem("user", JSON.stringify(data));
 
-      if(data.role === "Teacher"){
+      if(data.role === "teacher"){
         navigate("/dashboard");
-      } else if (data.role === "Student"){
+      } else if (data.role === "student"){
         navigate("/student-dashboard");
       } else {
         navigate("/login");
