@@ -101,12 +101,11 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
     # Build Verification link
     verify_link = f"{BACKEND_BASE_URL}/auth/verify-email?token={verification_token}"
     
-    # Background tasks
-    background_tasks.add_task(
-        send_verification_email,
+    send_verification_email(
         to_email=payload.email,
         verification_link=verify_link,
     )
+
     
     token = create_jwt(
         user_id=str(created_user_id),
