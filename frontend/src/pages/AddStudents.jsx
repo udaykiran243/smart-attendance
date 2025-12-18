@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
   Search, 
   RefreshCw, 
@@ -15,49 +15,65 @@ import {
   X,
   User
 } from "lucide-react";
-
-// --- Mock Data ---
-const UNVERIFIED_STUDENTS = [
-  {
-    id: 1,
-    name: "Ananya Sharma",
-    roll: "21CS045",
-    year: "3rd year · CSE",
-    subjects: "Data Mining, Cloud Computing",
-    status: "Unverified",
-    addedTime: "2 mins ago",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ananya",
-    hasImage: true,
-    actionType: "verify"
-  },
-  {
-    id: 2,
-    name: "Rahul Mehta",
-    roll: "22IT031",
-    year: "2nd year · IT",
-    subjects: "DBMS",
-    status: "Unverified",
-    addedTime: "10 mins ago",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul",
-    hasImage: true,
-    actionType: "verify"
-  },
-  {
-    id: 3,
-    name: "Meera Iyer",
-    roll: "20EC012",
-    year: "4th year · ECE",
-    subjects: "VLSI Design",
-    status: "Waiting image",
-    addedTime: "35 mins ago",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Meera",
-    hasImage: false,
-    actionType: "force-verify"
-  }
-];
+import { fetchMySubjects, fetchSubjectStudents, verifyStudent, deleteStudent } from "../api/teacher";
 
 export default function AddStudents() {
   const [filterType, setFilterType] = useState("Unverified only");
+  const [subjects, setSubjects] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [students, setStudents] = useState([]);
+
+  const [unverifiedCount, setUnverifiedCount] = useState(0)
+
+  useEffect(() => {
+    fetchMySubjects().then(setSubjects);
+  }, []);
+  
+  useEffect(() => {
+    if(!selectedSubject) return;
+    fetchSubjectStudents(selectedSubject).then(setStudents);
+  }, [selectedSubject]);
+
+  console.log(students)
+
+  const filteredStudents = students
+    .filter((s) => {
+      if (filterType === "Unverified only") return s.verified === false;
+      return true;
+    })
+    .map((s, idx) => ({
+      id: s.student_id,
+      name: s.name,
+      roll: s.roll,           
+      year: s.year,           
+      branch: s.branch.toUpperCase(),
+      status: s.verified ? "Verified" : "Unverified",
+      addedTime: "Just now",
+      avatar: s.avatar,
+      hasImage: true,
+      actionType: s.verified ? "none" : "verify"
+  }));
+
+  useEffect(() => {
+    setUnverifiedCount(
+      filteredStudents.filter(s => s.status === "Unverified").length
+    );
+  }, [filteredStudents]);
+
+  const handleVerify = async (studentId) => {
+    if (!confirm("Verify this student for attendance?")) return;
+
+    await verifyStudent(selectedSubject, studentId);
+    fetchSubjectStudents(selectedSubject).then(setStudents);
+  };
+
+  const handleDelete = async (studentId) => {
+    if (!confirm("Remove this student from subject?")) return;
+
+    await deleteStudent(selectedSubject, studentId);
+    fetchSubjectStudents(selectedSubject).then(setStudents);
+  };
+
 
   return (
     <div className="flex h-screen bg-[#F8FAFC]">
@@ -101,12 +117,19 @@ export default function AddStudents() {
               </div>
             </div>
             <div className="md:col-span-4 space-y-1.5">
-              <label className="text-xs font-semibold text-gray-500">Branch</label>
+              <label className="text-xs font-semibold text-gray-500">Subjects</label>
               <div className="relative">
-                <select className="w-full pl-3 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg text-sm appearance-none focus:ring-2 focus:ring-indigo-500 outline-none text-gray-700">
-                  <option>All branches</option>
-                  <option>Computer Science</option>
-                  <option>Information Tech</option>
+                <select
+                  value={selectedSubject || ""}
+                  onChange={(e) => setSelectedSubject(e.target.value)}
+                  className="w-full pl-3 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg text-sm appearance-none focus:ring-2 focus:ring-indigo-500 outline-none text-gray-700"
+                >
+                  <option value="">Select subject</option>
+                  {subjects.map(s => (
+                    <option key={s._id} value={s._id}>
+                      {s.name} ({s.code})
+                    </option>
+                  ))}
                 </select>
                 <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
               </div>
@@ -153,7 +176,7 @@ export default function AddStudents() {
               <p className="text-sm text-gray-500">Review face images, details, and linked subjects before allowing them into attendance sessions.</p>
             </div>
             <span className="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">
-              7 pending approvals
+              {unverifiedCount} pending approvals
             </span>
           </div>
 
@@ -161,17 +184,19 @@ export default function AddStudents() {
             <table className="w-full min-w-[900px]">
               <thead className="bg-gray-50">
                 <tr className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  <th className="px-6 py-4">Student</th>
                   <th className="px-6 py-4">Roll no</th>
-                  <th className="px-6 py-4">Year & branch</th>
-                  <th className="px-6 py-4">New subjects</th>
+                  <th className="px-6 py-4">Student</th>
+                  <th className="px-6 py-4">Year</th>
+                  <th className="px-6 py-4">Branch</th>
                   <th className="px-6 py-4">Status</th>
                   <th className="px-6 py-4">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {UNVERIFIED_STUDENTS.map((student) => (
+                {filteredStudents.map((student) => (
                   <tr key={student.id} className="hover:bg-gray-50 transition-colors group">
+
+                    <td className="px-6 py-4 text-sm font-medium text-gray-700">{student.roll}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <img src={student.avatar} alt={student.name} className="w-10 h-10 rounded-full bg-gray-100" />
@@ -181,9 +206,8 @@ export default function AddStudents() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm font-medium text-gray-700">{student.roll}</td>
                     <td className="px-6 py-4 text-sm text-gray-600">{student.year}</td>
-                    <td className="px-6 py-4 text-sm text-gray-800 max-w-[200px]">{student.subjects}</td>
+                    <td className="px-6 py-4 text-sm text-gray-800 max-w-[200px]">{student.branch}</td>
                     <td className="px-6 py-4">
                       {student.status === "Unverified" ? (
                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700 border border-amber-200">
@@ -199,20 +223,24 @@ export default function AddStudents() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        {student.actionType === "verify" ? (
-                          <button className="flex items-center gap-1 px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-bold hover:bg-emerald-600 transition shadow-sm">
+                        {!student.verified && (
+                          <button
+                            onClick={() => handleVerify(student.id)}
+                            className="flex items-center gap-1 px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-bold hover:bg-emerald-600 transition shadow-sm"
+                          >
                             <Check size={14} /> Verify
                           </button>
-                        ) : (
-                          <button className="flex items-center gap-1 px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-bold hover:bg-emerald-100 transition">
-                            <User size={14} /> Verify anyway
-                          </button>
                         )}
-                        <button className="px-3 py-1.5 border border-rose-200 text-rose-500 rounded-lg text-xs font-bold hover:bg-rose-50 transition">
-                           <X size={14} />
+
+                        <button
+                          onClick={() => handleDelete(student.id)}
+                          className="px-3 py-1.5 border border-rose-200 text-rose-500 rounded-lg text-xs font-bold hover:bg-rose-50 transition"
+                        >
+                          <X size={14} />
                         </button>
                       </div>
                     </td>
+
                   </tr>
                 ))}
               </tbody>

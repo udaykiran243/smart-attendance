@@ -10,80 +10,30 @@ import {
   ArrowDownRight
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-// --- Mock Data to match your design image ---
-const MOCK_STUDENTS = [
-  {
-    id: "202301",
-    name: "Aarav Patel",
-    class: "Grade 10A",
-    attendance: 96,
-    status: "Excellent",
-    trend: 4,
-    color: "green"
-  },
-  {
-    id: "202302",
-    name: "Sophia Lee",
-    class: "Grade 10A",
-    attendance: 92,
-    status: "Very good",
-    trend: 2,
-    color: "green"
-  },
-  {
-    id: "202303",
-    name: "Mohammed Ali",
-    class: "Grade 9B",
-    attendance: 84,
-    status: "Needs attention",
-    trend: 0, // flat
-    color: "amber"
-  },
-  {
-    id: "202304",
-    name: "Emma Wilson",
-    class: "Grade 9B",
-    attendance: 79,
-    status: "Moderate",
-    trend: -5,
-    color: "amber"
-  },
-  {
-    id: "202305",
-    name: "Liam Garcia",
-    class: "Grade 11C",
-    attendance: 64,
-    status: "At risk",
-    trend: 0,
-    color: "red"
-  },
-  {
-    id: "202306",
-    name: "Noah Smith",
-    class: "Grade 11C",
-    attendance: 58,
-    status: "Critical",
-    trend: -10,
-    color: "red"
-  },
-];
+import { fetchMySubjects, fetchSubjectStudents } from "../api/teacher";
 
 export default function StudentList() {
-  const [students, setStudents] = useState(MOCK_STUDENTS);
+  const [subjects, setSubjects] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [students, setStudents] = useState([]);
+
   const [selectedFilter, setSelectedFilter] = useState("All");
   const navigate = useNavigate();
 
   // Simulating the fetch call you had
-  useEffect(() => {
-    // In a real app, you would fetch here:
-    // async function load() {
-    //   const res = await fetch("/api/students");
-    //   const data = await res.json();
-    //   setStudents(data);
-    // }
-    // load();
+ useEffect(() => {
+    fetchMySubjects().then(setSubjects);
   }, []);
+
+  useEffect(() => {
+    if(!selectedSubject) return;
+    fetchSubjectStudents(selectedSubject).then(setStudents);
+  }, [selectedSubject])
+
+  const verifiedStudents = students.filter(
+    (s) => s.verified === true
+  );
+
 
   // Helper to get color classes
   const getColorClasses = (color) => {
@@ -147,9 +97,19 @@ export default function StudentList() {
 
             {/* Filter Controls */}
             <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
-              <button className="flex items-center gap-1 text-sm font-medium text-gray-600 px-3 py-1.5 hover:bg-gray-100 rounded-lg whitespace-nowrap cursor-pointer">
-                All classes <ChevronDown size={14} />
-              </button>
+              <select
+                value={selectedSubject || ""}
+                onChange={(e) => setSelectedSubject(e.target.value)}
+                className="flex items-center gap-1 text-sm font-medium text-gray-600 px-3 py-1.5 hover:bg-gray-100 rounded-lg whitespace-nowrap cursor-pointer"
+              >
+                <option value="">Select subject</option>
+                {subjects.map(s => (
+                  <option key={s._id} value={s._id}>
+                    {s.name} ({s.code})
+                  </option>
+                ))}
+              </select>
+
               <button className="flex items-center gap-1 text-sm font-medium text-gray-600 px-3 py-1.5 hover:bg-gray-100 rounded-lg whitespace-nowrap cursor-pointer">
                 Sort by attendance <ChevronDown size={14} />
               </button>
@@ -178,78 +138,109 @@ export default function StudentList() {
               <table className="w-full min-w-[800px]">
                 <thead className="bg-gray-50 border-b border-gray-100">
                   <tr className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4">Roll Number</th>
                     <th className="px-6 py-4">Student</th>
-                    <th className="px-6 py-4">Class</th>
                     <th className="px-6 py-4">Visual grade</th>
                     <th className="px-6 py-4">Trend</th>
                     <th className="px-6 py-4 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
-                  {students.map((student) => (
-                    <tr key={student.id} className="hover:bg-gray-50 transition-colors group">
-                      
-                      {/* Name Column */}
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold text-sm">
-                            {student.name.split(' ').map(n => n[0]).join('')}
-                          </div>
-                          <div>
-                            <div className="font-semibold text-[var(--text-main)]">{student.name}</div>
-                            <div className="text-xs text-gray-400">ID {student.id}</div>
-                          </div>
-                        </div>
-                      </td>
+                  {verifiedStudents.map((student) => {
+                    const present = student.attendance?.present ?? 0;
+                    const absent = student.attendance?.absent ?? 0;
+                    const total = present + absent;
+                    const percentage = total > 0 ? Math.round((present / total) * 100) : 0;
 
-                      {/* Class Column */}
-                      <td className="px-6 py-4 text-sm text-[var(--text-body)] font-medium">
-                        {student.class}
-                      </td>
+                    // derive UI-only values (NO design change)
+                    let color = "amber";
+                    let status = "Moderate";
+                    let trend = 0;
 
-                      {/* Visual Grade Column */}
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3 w-48">
-                          {/* The Pill */}
-                          <div className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap shadow-sm ${getColorClasses(student.color)}`}>
-                            {student.attendance}% {student.status}
-                          </div>
-                          {/* The Bar */}
-                          <div className="h-2 flex-1 bg-gray-100 rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full rounded-full ${getBarColor(student.color)}`} 
-                              style={{ width: `${student.attendance}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      </td>
+                    if (percentage >= 90) {
+                      color = "green";
+                      status = "Excellent";
+                    } else if (percentage < 75) {
+                      color = "red";
+                      status = "At risk";
+                    }
 
-                      {/* Trend Column */}
-                      <td className="px-6 py-4">
-                        {student.trend > 0 ? (
-                          <div className="flex items-center gap-1 text-xs font-semibold text-emerald-600">
-                             <ArrowUpRight size={14} />
-                             +{student.trend}% vs last month
-                          </div>
-                        ) : student.trend < 0 ? (
-                          <div className="flex items-center gap-1 text-xs font-semibold text-rose-500">
-                             <ArrowDownRight size={14} />
-                             {student.trend}% vs last month
-                          </div>
-                        ) : (
-                          <div className="text-xs font-medium text-gray-400">No change</div>
-                        )}
-                      </td>
+                    return (
+                      <tr
+                        key={student.student_id}
+                        className="hover:bg-gray-50 transition-colors group"
+                      >
+                        {/* Roll Number column */}
+                        <td className="px-6 py-4">
+                          <p>{student.roll}</p>
+                        </td>
 
-                      {/* Actions Column */}
-                      <td className="px-6 py-4 text-right">
-                        <button className="text-gray-400 hover:text-gray-600 p-1 hover:bg-gray-100 rounded-full transition">
-                          <MoreHorizontal size={20} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        {/* Name Column */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold text-sm">
+                              <img src={student.avatar} alt="students-avatar" className="rounded-full w-10 h-10" />
+                            </div>
+                            <div>
+                              <div className="font-semibold text-[var(--text-main)]">
+                                {student.name}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Visual Grade Column */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-3 w-48">
+                            {/* The Pill */}
+                            <div
+                              className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap shadow-sm ${getColorClasses(
+                                color
+                              )}`}
+                            >
+                              {percentage}% {status}
+                            </div>
+
+                            {/* The Bar */}
+                            <div className="h-2 flex-1 bg-gray-100 rounded-full overflow-hidden">
+                              <div
+                                className={`h-full rounded-full ${getBarColor(color)}`}
+                                style={{ width: `${percentage}%` }}
+                              />
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Trend Column (placeholder, unchanged UI) */}
+                        <td className="px-6 py-4">
+                          {trend > 0 ? (
+                            <div className="flex items-center gap-1 text-xs font-semibold text-emerald-600">
+                              <ArrowUpRight size={14} />
+                              +{trend}% vs last month
+                            </div>
+                          ) : trend < 0 ? (
+                            <div className="flex items-center gap-1 text-xs font-semibold text-rose-500">
+                              <ArrowDownRight size={14} />
+                              {trend}% vs last month
+                            </div>
+                          ) : (
+                            <div className="text-xs font-medium text-gray-400">
+                              No change
+                            </div>
+                          )}
+                        </td>
+
+                        {/* Actions Column */}
+                        <td className="px-6 py-4 text-right">
+                          <button className="text-gray-400 hover:text-gray-600 p-1 hover:bg-gray-100 rounded-full transition">
+                            <MoreHorizontal size={20} />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
+
               </table>
             </div>
             

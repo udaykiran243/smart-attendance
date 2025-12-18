@@ -1,5 +1,5 @@
 # backend/app/api/routes/settings.py
-
+from app.db.mongo import db
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 from pathlib import Path
 from datetime import datetime
@@ -16,6 +16,7 @@ from app.utils.utils import serialize_bson
 from app.api.deps import get_current_teacher
 from app.services.subject_service import add_subject_for_teacher
 from app.db.subjects_repo import get_subjects_by_ids
+from bson import ObjectId
 
 router = APIRouter(prefix="/settings", tags=["settings"])
 
@@ -127,3 +128,135 @@ async def add_subject(
     )
     
     return serialize_bson(subject)
+
+
+@router.get("/teachers/me/subjects")
+async def get_my_subjects(current_user: dict = Depends(get_current_teacher)):
+    # if current_user.get("role") != "teacher":
+    #     raise HTTPException(status_code=403, detail="not a teacher")
+    
+    prof_id = ObjectId(current_user["id"])
+    
+    subjects = await db.subjects.find(
+        {"professor_ids": prof_id}
+    ).to_list(None)
+    
+    return [
+        {
+            "_id": str(s["_id"]),
+            "name": s["name"],
+            "code": s.get("code")
+        }
+        for s in subjects
+    ]
+    
+# GET STUDENTS OF A SUBJECT
+@router.get("/teachers/subjects/{subject_id}/students")
+async def get_subject_students(
+    subject_id: str,
+    current_user: dict = Depends(get_current_teacher)
+):
+    # if current_user.get("role") != "teacher":
+    #     raise HTTPException(status_code=403, detail="not a teacher")
+    
+    subject = await db.subjects.find_one(
+        {"_id": ObjectId(subject_id)},
+        {"students": 1}
+    )
+    
+    if not subject:
+        raise HTTPException(404, "Subject not found")
+    
+    subject_students = subject.get("students", [])
+    student_user_ids = [s["student_id"] for s in subject_students]
+    
+    # students collection
+    student = {
+        str(s["user_id"]): s
+        async for s in db.students.find({"user_id": {"$in": student_user_ids}})
+    }
+    
+    # user's collections
+    users = {
+        str(u["_id"]) : u
+        async for u in db.users.find({"_id": {"$in": student_user_ids}})
+    }
+    
+    response = []
+    
+    for s in subject_students:
+        uid = str(s["student_id"])
+        user = users.get(uid)
+        student = student.get(uid)
+        
+        if not user:
+            continue
+        
+        response.append({
+            "student_id": uid,
+            "name": user.get("name"),
+            "roll": user.get("roll"),      # ✅ now exists
+            "year": user.get("year"),      # ✅ now exists
+            "branch": user.get("branch"),
+            "avatar": student.get("image_url") if student else None,
+            "verified": s["verified"],
+            "attendance": s["attendance"],
+        })
+    
+    return response
+
+
+@router.post("/teachers/subjects/{subject_id}/students/{student_id}/verify")
+async def verify_student(
+    subject_id: str,
+    student_id: str,
+    current_user: dict = Depends(get_current_teacher)
+):
+    prof_id = ObjectId(current_user["id"])
+    
+    result = await db.subjects.update_one(
+        {
+            "_id": ObjectId(subject_id),
+            "professor_ids": prof_id,
+            "students.student_id": ObjectId(student_id)
+        },
+        {
+            "$set":{"students.$.verified": True}
+        }
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(404, "Student or subject not found")
+    
+    return {"message": "Student Verified"}
+
+
+
+@router.delete("/teachers/subjects/{subject_id}/students/{student_id}")
+async def remove_student(
+    subject_id: str,
+    student_id: str,
+    current_user: dict = Depends(get_current_teacher)
+):
+    prof_id = ObjectId(current_user["id"])
+    subject_oid = ObjectId(subject_id)
+    student_oid = ObjectId(student_id)
+
+    # 1️⃣ Remove from subject.students
+    await db.subjects.update_one(
+        {
+            "_id": subject_oid,
+            "professor_ids": prof_id,
+        },
+        {
+            "$pull": {"students": {"student_id": student_oid}}
+        }
+    )
+
+    # 2️⃣ Remove subject from student.subjects
+    await db.students.update_one(
+        {"user_id": student_oid},
+        {"$pull": {"subjects": subject_oid}}
+    )
+
+    return {"message": "Student removed from subject"}
