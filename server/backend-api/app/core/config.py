@@ -11,6 +11,8 @@ APP_NAME = "Smart Attendance API"
 # CORS origins
 ORIGINS = [
     "http://localhost:5173",
+    "https://sa-gl.vercel.app",
+    "https://studentcheck.vercel.app",
     "http://127.0.0.1:5173",
 ]
 

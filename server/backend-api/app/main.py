@@ -30,6 +30,7 @@ def create_app() -> FastAPI:
         CORSMiddleware,
         allow_origins=[
             "https://sa-gl.vercel.app",     # frontend (Vercel)
+            "https://studentcheck.vercel.app",
             "http://localhost:5173",        # local dev
         ],
         allow_credentials=True,
