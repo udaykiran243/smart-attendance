@@ -1024,23 +1024,23 @@ Content-Type: application/json
 ## 📸 Screenshots
 
 ### Teacher Dashboard
-![Teacher Dashboard](https://via.placeholder.com/800x450?text=Teacher+Dashboard)
+<img width="1891" height="1025" alt="image" src="https://github.com/user-attachments/assets/3a75afd6-b8b0-4f49-af2f-f9cb28cfeb18" />
 *Comprehensive overview of attendance statistics and analytics*
 
 ### Mark Attendance
-![Mark Attendance](https://via.placeholder.com/800x450?text=Mark+Attendance)
+<img width="1894" height="1029" alt="image" src="https://github.com/user-attachments/assets/1c82ad55-00d1-42ca-adb2-9f4506f53cb7" />
 *Real-time facial recognition attendance marking*
 
 ### Student List
-![Student List](https://via.placeholder.com/800x450?text=Student+List)
+<img width="1900" height="1032" alt="image" src="https://github.com/user-attachments/assets/12aaa1ed-bd6a-49c2-a623-d2682a79aa74" />
 *Manage and view all enrolled students*
 
 ### Analytics
-![Analytics](https://via.placeholder.com/800x450?text=Analytics+Dashboard)
+<img width="1900" height="1033" alt="image" src="https://github.com/user-attachments/assets/9856f3eb-37aa-496b-82f2-a7d34a79796b" />
 *Detailed attendance analytics and reports*
 
 ### Student Dashboard
-![Student Dashboard](https://via.placeholder.com/800x450?text=Student+Dashboard)
+<img width="1895" height="1025" alt="image" src="https://github.com/user-attachments/assets/222dc04f-d448-4a35-b70e-07be20ab283d" />
 *Student portal with attendance overview*
 
 ---
@@ -1197,26 +1197,20 @@ We take security seriously and will respond promptly to all reports.
 - [x] Teacher and student dashboards
 - [x] MongoDB integration
 - [x] Google OAuth login
-- [x] Email notifications
 - [x] Subject management
-- [x] Attendance analytics
-- [x] Reports generation
+
 
 ### Version 1.1 (In Progress)
-- [ ] Mobile app (React Native)
-- [ ] Improved face recognition accuracy
-- [ ] Bulk student import (CSV/Excel)
+- [ ] Attendance analytics
+- [ ] Email notifications
+- [ ] Reports generation
 - [ ] Attendance geofencing
 - [ ] QR code backup attendance
 - [ ] Multi-language support
-- [ ] Dark mode improvements
 
 ### Version 2.0 (Planned)
-- [ ] AI-powered attendance forecasting
-- [ ] Integration with LMS (Moodle, Canvas)
 - [ ] Video-based attendance (process video feed)
 - [ ] Biometric integration
-- [ ] Advanced analytics with ML insights
 - [ ] Parent portal
 - [ ] Mobile notifications (Push)
 - [ ] Offline mode support
