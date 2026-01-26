@@ -633,9 +633,7 @@ smart-attendance/
 │   │   │   │   │   ├── auth.py         # Authentication endpoints
 │   │   │   │   │   ├── students.py     # Student management
 │   │   │   │   │   ├── attendance.py   # Attendance marking
-│   │   │   │   │   ├── classes.py      # Class management
-│   │   │   │   │   ├── teacher_settings.py # Teacher preferences
-│   │   │   │   │   └── users.py        # User management
+│   │   │   │   │   └── teacher_settings.py # Teacher preferences
 │   │   │   │   └── deps.py             # API dependencies
 │   │   │   ├── core/                   # Core configuration
 │   │   │   │   ├── config.py           # App configuration

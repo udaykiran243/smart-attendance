@@ -77,7 +77,7 @@ This repository contains a full-stack Smart Attendance System with three main co
 - NumPy → Numerical operations
 - Pillow → Image handling
 
-If you know basic React + CSS for frontend, or Python for backend, you're good to go.
+If you know basic React + CSS for frontend work, or Python + FastAPI for backend services, you're good to go.
 
 
 ## 🏁 Final Tips
