@@ -13,6 +13,7 @@ from app.api.deps import get_current_teacher
 from app.services.subject_service import add_subject_for_teacher
 from app.db.subjects_repo import get_subjects_by_ids
 from bson import ObjectId, errors as bson_errors
+from app.schemas.schedule import Schedule
 
 router = APIRouter(prefix="/settings", tags=["settings"])
 
@@ -56,6 +57,7 @@ async def get_settings(current: dict = Depends(get_current_teacher)):
         "subjects": subjects,
         
         "settings": teacher.get("settings", {}),
+        "schedule": teacher.get("schedule", {}),
     }
     
     return serialize_bson(profile)
@@ -123,6 +125,7 @@ async def patch_settings_route(
         "avatarUrl": fresh_teacher.get("avatarUrl"),
         "subjects": subjects,
         "settings": fresh_teacher.get("settings", {}),
+        "schedule": fresh_teacher.get("schedule", {}),
     }
     
     return serialize_bson(profile)
@@ -207,6 +210,71 @@ async def add_subject(
     )
     
     return serialize_bson(subject)
+
+
+async def replace_settings(user_id_str: str, payload: dict) -> dict:
+    """Replace teacher settings document fields. This intentionally allows replacing
+    `department`, `settings`, and `schedule` (a structured object matching
+    the UI). Returns the fresh teacher+user profile.
+    """
+    user_id = validate_object_id(user_id_str)
+    now = datetime.utcnow()
+
+    teacher_updates = {}
+
+    if "department" in payload:
+        teacher_updates["department"] = payload["department"]
+
+    if "settings" in payload and isinstance(payload["settings"], dict):
+        teacher_updates["settings"] = payload["settings"]
+
+    # Accept schedule as an object; basic type check performed here. More
+    # validation can be added by parsing with `Schedule.parse_obj(...)`.
+    if "schedule" in payload:
+        if payload["schedule"] is None:
+            teacher_updates["schedule"] = None
+        elif isinstance(payload["schedule"], dict):
+            # optional deeper validation
+            try:
+                Schedule.parse_obj(payload["schedule"])
+            except Exception:
+                raise HTTPException(status_code=400, detail="Invalid schedule format")
+            teacher_updates["schedule"] = payload["schedule"]
+        else:
+            raise HTTPException(status_code=400, detail="Invalid schedule format")
+
+    if teacher_updates:
+        result = await db.teachers.update_one(
+            {"userId": user_id},
+            {"$set": {**teacher_updates, "updatedAt": now}}
+        )
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Teacher profile not found")
+
+    # Return fresh merged profile
+    fresh_user = await db.users.find_one({"_id": user_id})
+    fresh_teacher = await db.teachers.find_one({"userId": user_id})
+    if not fresh_user or not fresh_teacher:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
+    subject_ids = fresh_teacher.get("subjects", [])
+    subjects = await get_subjects_by_ids(subject_ids)
+
+    profile = {
+        "id": str(user_id),
+        "name": fresh_user.get("name", ""),
+        "email": fresh_user.get("email", ""),
+        "phone": fresh_user.get("phone", ""),
+        "employee_id": fresh_user.get("employee_id"),
+        "role": "teacher",
+        "department": fresh_teacher.get("department"),
+        "avatarUrl": fresh_teacher.get("avatarUrl"),
+        "subjects": subjects,
+        "settings": fresh_teacher.get("settings", {}),
+        "schedule": fresh_teacher.get("schedule", {}),
+    }
+
+    return profile
 
 # ---------- My subjects ----------------
 @router.get("/teachers/me/subjects", response_model=list)
