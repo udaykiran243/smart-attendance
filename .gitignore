@@ -71,3 +71,16 @@ docker-compose.yml
 *.tar
 *.gz
 *.rar
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+
+# Env files
+.env
+
