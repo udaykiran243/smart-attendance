@@ -124,7 +124,6 @@ export default function StudentProfile() {
                     <h3 className="text-xl font-bold text-slate-900">{data.name || "John"}</h3>
                     <div className="flex items-center justify-center sm:justify-start gap-2 mt-1">
                       <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">Roll no: {data.roll || "21CS045"}</span>
-                      <span className="text-sm text-slate-500">Computer Science</span>
                     </div>
                   </div>
                   <button className="text-xs font-medium text-slate-500 hover:text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition mt-3 sm:mt-0 border border-gray-200 flex items-center gap-2 cursor-not-allowed">

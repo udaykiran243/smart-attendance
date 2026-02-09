@@ -32,7 +32,6 @@ async def api_get_my_profile(
 
     return profile
 
-
 # ============================
 # GET STUDENT PROFILE (PUBLIC)
 # ============================
@@ -168,8 +167,6 @@ async def add_subject(
 
     user = await db.users.find_one({"_id": student["userId"]})
     student_name = user.get("name", "")
-    
-    print(student_name)
 
     # 2️⃣ Fetch subject
     subject = await db.subjects.find_one({"_id": subject_oid})

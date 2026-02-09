@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, BackgroundTasks, Query, Depends, R
 from fastapi.responses import RedirectResponse
 from authlib.integrations.starlette_client import OAuth
 from bson import ObjectId
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,UTC,timezone
 import secrets
 import os
 from app.utils.jwt_token import create_jwt
@@ -10,7 +10,8 @@ from urllib.parse import quote
 
 from ...schemas.auth import RegisterRequest, UserResponse, LoginRequest
 from ...core.security import hash_password, verify_password
-from ...core.email import send_verification_email
+# from ...core.email import send_verification_email
+from ...core.email import BrevoEmailService
 from ...core.config import BACKEND_BASE_URL
 from ...db.mongo import db
 
@@ -34,7 +35,7 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
     
     # Generate random verification link
     verification_token = secrets.token_urlsafe(32)
-    verification_expiry = datetime.utcnow() + timedelta(hours=24)
+    verification_expiry = datetime.now(UTC) + timedelta(hours=24)
     
     user_doc = {
         "name": payload.name,
@@ -44,19 +45,8 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
         "is_verified": False,  # Changed to False for email verification flow
         "verification_token": verification_token,  # Store the actual token
         "verification_expiry": verification_expiry,
-        "created_at": datetime.utcnow(),
+        "created_at": datetime.now(UTC),
     }
-    
-    # Add role specific data
-    if payload.role == "student":
-        user_doc["branch"] = payload.branch
-        user_doc["roll"] = payload.roll
-        user_doc["year"] = payload.year
-        
-    elif payload.role == "teacher":
-        user_doc["employee_id"] = payload.employee_id
-        user_doc["phone"] = payload.phone
-
     # Insert into users collection
     try:
         result = await db.users.insert_one(user_doc)
@@ -72,7 +62,9 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
                 "name": payload.name,
                 "email": payload.email,
                 "branch": payload.branch,
-                "created_at": datetime.utcnow(),
+                "roll":payload.roll,
+                "year":payload.year,
+                "created_at":  datetime.now(UTC),
             }
             await db.students.insert_one(student_doc)
 
@@ -84,6 +76,9 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
 
             teacher_doc = {
                 "userId": created_user_id,
+                "employee_id":payload.employee_id,
+                "phone":payload.phone,
+                "branch":payload.branch,
                 "subjects": [],
                 "avatarUrl": None,
                 "department": None,
@@ -106,8 +101,8 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
                         "liveness": True,
                     },
                 },
-                "createdAt": datetime.utcnow(),
-                "updatedAt": datetime.utcnow(),
+                "createdAt":  datetime.now(UTC),
+                "updatedAt":  datetime.now(UTC),
                 
             }
 
@@ -126,9 +121,15 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
     # Build Verification link
     verify_link = f"{BACKEND_BASE_URL}/auth/verify-email?token={verification_token}"
     
-    send_verification_email(
-        to_email=payload.email,
-        verification_link=verify_link,
+    # send_verification_email(
+    #     to_email=payload.email,
+    #     verification_link=verify_link,
+    # )
+    background_tasks.add_task(
+         BrevoEmailService.send_verification_email,
+         payload.email,
+         payload.name,
+         verify_link
     )
 
     token = create_jwt(
@@ -171,8 +172,6 @@ async def login(payload: LoginRequest):
         role=user["role"],
         email=user["email"]
     )
-    
-    print(token)
 
     return {
         "user_id": str(user["_id"]),
@@ -192,8 +191,11 @@ async def verify_email(token: str = Query(...)):
     
     # Check expiry
     expires_at = user.get("verification_expiry")
-    if expires_at and expires_at < datetime.utcnow():
-        raise HTTPException(status_code=400, detail="Verification link expired")
+    if expires_at:
+        if expires_at.tzinfo is None:
+            expires_at = expires_at.replace(tzinfo=timezone.utc)
+        if expires_at and expires_at <  datetime.now(UTC):
+            raise HTTPException(status_code=400, detail="Verification link expired")
     
     await db.users.update_one(
         {"_id": user["_id"]},

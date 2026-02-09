@@ -57,7 +57,7 @@ export default function Register() {
         name: formData.name,
         email: formData.email,
         password: formData.password,
-        branch: role === "student" ? formData.branch : undefined,
+        branch:formData.branch,
         employee_id: role === "teacher" ? formData.employee_id : undefined,
         phone: role === "teacher" ? formData.phone : undefined,
         year: role === "student" ? formData.year : undefined,
@@ -180,13 +180,8 @@ export default function Register() {
                     <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                   </div>
                 </div>
-
-                {/* ROLE SPECIFIC FIELDS */}
-                
-                {role === "student" && (
-                  <div className="space-y-4">
-                    {/* -------- Branch -------- */}
-                    <div className="space-y-1.5">
+                {/* -------- Branch -------- */}
+                <div className="space-y-1.5">
                       <label className="text-sm font-semibold text-gray-700">Branch</label>
                       <div className="relative">
                         <select
@@ -207,7 +202,11 @@ export default function Register() {
                           className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                         />
                       </div>
-                    </div>
+                 </div>
+                {/* ROLE SPECIFIC FIELDS */}
+                
+                {role === "student" && (
+                  <div className="space-y-4">
 
                     {/* -------- Year -------- */}
                     <div className="space-y-1.5">
