@@ -135,9 +135,6 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
         verify_link,
     )
 
-    token = create_jwt(
-        user_id=str(created_user_id), role=payload.role, email=payload.email
-    )
     logger.info(f"User registered successfully: {payload.email}")
 
     return {
