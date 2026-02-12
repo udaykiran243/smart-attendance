@@ -142,7 +142,7 @@ async def register(payload: RegisterRequest, background_tasks: BackgroundTasks):
         "role": payload.role,
         "name": payload.name,
         "college_name": payload.college_name,
-        "token": "",  # No token returned to enforce verification
+        "token": "",  # nosec: B105 No token returned to enforce verification
     }
 
 
@@ -263,7 +263,10 @@ async def google_callback(request: Request):
             {"_id": user["_id"]},
             {
                 "$set": {"is_verified": True},
-                "$unset": {"verification_token": "", "verification_expiry": ""},
+                "$unset": {
+                    "verification_token": "",
+                    "verification_expiry": "",
+                },  # nosec: B105
             },
         )
         logger.info(f"User auto-verified via Google Login: {email}")
