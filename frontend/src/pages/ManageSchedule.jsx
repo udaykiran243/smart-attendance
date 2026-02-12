@@ -9,6 +9,10 @@ import {
   ChevronDown,
   MoreHorizontal, // this icon can be used for "more options" on class cards
   Loader2,
+  Edit2,  
+  Trash2,  
+  X,       
+  Save
 } from "lucide-react";
 import { getSettings, updateSettings } from "../api/schedule";
 import Spinner from "../components/Spinner";
@@ -19,6 +23,8 @@ export default function ManageSchedule() {
   const [isLoading, setIsLoading] = useState(true);
   const [scheduleData, setScheduleData] = useState([]);
   const [scheduleEnvelope, setScheduleEnvelope] = useState({});
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentClass, setCurrentClass] = useState(null);
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const calendarDays = Array.from({ length: 35 }, (_, i) => {
@@ -130,11 +136,100 @@ export default function ManageSchedule() {
     };
     setScheduleData([...scheduleData, newClass]);
   };
+  const handleDeleteClass = (id) => {
+    if (window.confirm("Are you sure you want to delete this class?")) {
+      setScheduleData((prev) => prev.filter((item) => item.id !== id));
+    }
+  };
 
+  const openEditModal = (cls) => {
+    setCurrentClass({ ...cls }); 
+    setIsEditModalOpen(true);
+  };
+
+  const saveEditedClass = () => {
+    setScheduleData((prev) =>
+      prev.map((item) => (item.id === currentClass.id ? currentClass : item))
+    );
+    setIsEditModalOpen(false);
+    setCurrentClass(null);
+  };
   if (isLoading) return <Spinner />;
 
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] font-sans text-[var(--text-main)] transition-colors duration-200">
+      {isEditModalOpen && currentClass && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-[var(--bg-card)] border border-[var(--border-color)] w-full max-w-md p-6 rounded-2xl shadow-2xl space-y-4">
+            <div className="flex justify-between items-center border-b border-[var(--border-color)] pb-3">
+              <h3 className="text-xl font-bold">Edit Class</h3>
+              <button 
+                onClick={() => setIsEditModalOpen(false)}
+                className="text-[var(--text-body)] hover:text-[var(--text-main)]"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm font-medium mb-1">Subject Name</label>
+                <input 
+                  type="text" 
+                  value={currentClass.title}
+                  onChange={(e) => setCurrentClass({...currentClass, title: e.target.value})}
+                  className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg px-3 py-2 outline-none focus:ring-2 ring-[var(--primary)]"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Time (Start - End)</label>
+                <input 
+                  type="text" 
+                  value={currentClass.time}
+                  placeholder="09:00 - 10:00"
+                  onChange={(e) => setCurrentClass({...currentClass, time: e.target.value})}
+                  className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg px-3 py-2 outline-none focus:ring-2 ring-[var(--primary)]"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Room</label>
+                  <input 
+                    type="text" 
+                    value={currentClass.room}
+                    onChange={(e) => setCurrentClass({...currentClass, room: e.target.value})}
+                    className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg px-3 py-2 outline-none focus:ring-2 ring-[var(--primary)]"
+                  />
+                </div>
+                <div>
+                   <label className="block text-sm font-medium mb-1">Teacher</label>
+                   <input 
+                    type="text" 
+                    value={currentClass.teacher}
+                    onChange={(e) => setCurrentClass({...currentClass, teacher: e.target.value})}
+                    className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg px-3 py-2 outline-none focus:ring-2 ring-[var(--primary)]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 flex justify-end gap-2">
+              <button 
+                onClick={() => setIsEditModalOpen(false)}
+                className="px-4 py-2 text-sm font-medium text-[var(--text-body)] hover:bg-[var(--bg-secondary)] rounded-lg transition"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={saveEditedClass}
+                className="px-4 py-2 text-sm font-medium bg-[var(--primary)] text-white rounded-lg shadow-sm hover:opacity-90 transition flex items-center gap-2"
+              >
+                <Save size={16} /> Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <main className="max-w-[1600px] mx-auto p-6 md:p-8 space-y-8 animate-in fade-in duration-500">
         {/* HEADER */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -190,13 +285,30 @@ export default function ManageSchedule() {
                 >
                   <div className="flex justify-between items-start mb-1">
                     <h4 className="font-bold">{cls.title}</h4>
-                    <span className="text-xs text-[var(--text-body)]">
-                      {cls.time}
-                    </span>
+                    <div className="flex items-center gap-1">
+                       <button 
+                        onClick={() => openEditModal(cls)}
+                        className="p-1.5 text-[var(--text-body)] hover:text-[var(--primary)] hover:bg-[var(--bg-secondary)] rounded-md transition"
+                        title="Edit Class"
+                       >
+                         <Edit2 size={16} />
+                       </button>
+                       <button 
+                        onClick={() => handleDeleteClass(cls.id)}
+                        className="p-1.5 text-[var(--text-body)] hover:text-red-500 hover:bg-red-50/10 rounded-md transition"
+                        title="Delete Class"
+                       >
+                         <Trash2 size={16} />
+                       </button>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-end">
+                  <p className="text-sm font-medium text-[var(--text-main)] mb-3">
+                     {cls.time}
+                  </p>
+
+                  <div className="flex justify-between items-end border-t border-[var(--border-color)] pt-3">
                     <p className="text-sm text-[var(--text-body)]">
-                      Room {cls.room} · {cls.teacher}
+                      Room <span className="text-[var(--text-main)] font-semibold">{cls.room}</span> · {cls.teacher}
                     </p>
                     <span
                       className={`text-white text-[10px] font-bold px-2 py-0.5 rounded ${cls.status === "Active" ? "bg-emerald-500" : "bg-amber-500"}`}
