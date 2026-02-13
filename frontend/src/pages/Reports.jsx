@@ -304,7 +304,7 @@ export default function Reports() {
         {/* Footer */}
         <div className="bg-gray-50 p-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
           <span>
-            Showing {sortedStudents.length} of {sortedStudents.length} students
+            Showing {sortedStudents.length} of {verifiedStudents.length} students
             {sortConfig.key && sortConfig.direction && (
               <> • Sorted by {
                 sortConfig.key === 'total' ? 'Total Classes' :
