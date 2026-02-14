@@ -30,7 +30,7 @@ class ResetPasswordRequest(BaseModel):
     """Request body for POST /auth/reset-password."""
     email: EmailStr
     otp: constr(min_length=6, max_length=6, pattern=r"^\d{6}$")
-    new_password: constr(min_length=6, max_length=72)
+    new_password: constr(min_length=6, max_length=128)
 
 
 class ResetPasswordResponse(BaseModel):
@@ -66,7 +66,7 @@ class RegisterRequest(BaseModel):
     role: str
     name: str
     email: EmailStr
-    password: constr(min_length=6, max_length=72)
+    password: constr(min_length=6, max_length=128)
     college_name: str
 
     # Student

@@ -12,6 +12,8 @@ security = HTTPBearer(auto_error=False)
 JWT_SECRET = settings.JWT_SECRET
 JWT_ALGORITHM = settings.JWT_ALGORITHM
 
+# Password hashing context using bcrypt
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def decode_jwt_token(token: str):
     try:
