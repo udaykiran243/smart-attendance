@@ -186,7 +186,7 @@ async def test_monthly_summary_invalid_class_id(client: AsyncClient, db):
 async def test_class_risk(client: AsyncClient, db):
     """Test GET /api/analytics/class-risk endpoint"""
     # Create test classes with different attendance rates
-    
+
     # Class 1: High attendance (>75%)
     class1_id = ObjectId()
     await db.subjects.insert_one(
@@ -269,13 +269,18 @@ async def test_class_risk(client: AsyncClient, db):
     assert len(data["data"]) == 2
 
     # Verify classes are sorted by percentage (ascending)
-    assert data["data"][0]["attendancePercentage"] <= data["data"][1]["attendancePercentage"]
+    assert (
+        data["data"][0]["attendancePercentage"]
+        <= data["data"][1]["attendancePercentage"]
+    )
 
     # Verify the low attendance class is included
     class_ids = [c["classId"] for c in data["data"]]
     assert str(class2_id) in class_ids
     assert str(class3_id) in class_ids
-    assert str(class1_id) not in class_ids  # High attendance class should not be included
+    assert (
+        str(class1_id) not in class_ids
+    )  # High attendance class should not be included
 
     # Verify class details
     math_class = next(c for c in data["data"] if c["classId"] == str(class2_id))
@@ -450,12 +455,14 @@ async def test_global_stats(client: AsyncClient, db, teacher_token_header):
 
     # Top subjects should be sorted by percentage (descending)
     assert len(data["top_subjects"]) == 3
-    assert data["top_subjects"][0]["attendancePercentage"] >= data["top_subjects"][1][
-        "attendancePercentage"
-    ]
-    assert data["top_subjects"][1]["attendancePercentage"] >= data["top_subjects"][2][
-        "attendancePercentage"
-    ]
+    assert (
+        data["top_subjects"][0]["attendancePercentage"]
+        >= data["top_subjects"][1]["attendancePercentage"]
+    )
+    assert (
+        data["top_subjects"][1]["attendancePercentage"]
+        >= data["top_subjects"][2]["attendancePercentage"]
+    )
 
     # Verify subject details
     assert data["top_subjects"][0]["subjectName"] == "Physics"

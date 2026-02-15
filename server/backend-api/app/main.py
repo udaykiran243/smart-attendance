@@ -9,6 +9,7 @@ import sentry_sdk
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 
 from app.api.routes import teacher_settings as settings_router
+from .api.routes.schedule import router as schedule_router
 from .api.routes.attendance import router as attendance_router
 from .api.routes.auth import router as auth_router
 from .api.routes.analytics import router as analytics_router
@@ -21,6 +22,7 @@ from app.services.attendance_daily import (
     ensure_indexes as ensure_attendance_daily_indexes,
 )
 from app.services.ml_client import ml_client
+from app.db.nonce_store import close_redis
 
 # New Imports
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -66,6 +68,7 @@ async def lifespan(app: FastAPI):
     yield
     await ml_client.close()
     logger.info("ML client closed")
+    await close_redis()
 
 def create_app() -> FastAPI:
     app = FastAPI(title=APP_NAME, lifespan=lifespan)
@@ -109,6 +112,7 @@ def create_app() -> FastAPI:
     app.include_router(auth_router)
     app.include_router(students_router)
     app.include_router(attendance_router)
+    app.include_router(schedule_router)
     app.include_router(settings_router.router)
     app.include_router(notifications_router)
     app.include_router(analytics_router)

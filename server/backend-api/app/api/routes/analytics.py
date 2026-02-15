@@ -311,7 +311,12 @@ async def get_global_stats(
                             "$round": [
                                 {
                                     "$multiply": [
-                                        {"$divide": ["$totalPresent", "$totalStudents"]},
+                                        {
+                                            "$divide": [
+                                                "$totalPresent",
+                                                "$totalStudents",
+                                            ]
+                                        },
                                         100,
                                     ]
                                 },
@@ -375,7 +380,8 @@ async def get_global_stats(
     # Re-sort by attendancePercentage descending
     subject_stats.sort(key=lambda x: x["attendancePercentage"], reverse=True)
 
-    # Recompute overall_attendance (unweighted average of all subjects, including 0% subjects)
+    # Recompute overall_attendance (unweighted average of all subjects,
+    # including 0% subjects)
     # Note: Each subject contributes equally regardless of student count
     overall_attendance = (
         round(total_percentage / len(subject_stats), 2) if subject_stats else 0.0
