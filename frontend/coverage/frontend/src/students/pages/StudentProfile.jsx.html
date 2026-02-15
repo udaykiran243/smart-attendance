@@ -15,41 +15,41 @@
         }
     </style>
 </head>
-
+    
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../../../../index.html">All files</a> / <a href="index.html">frontend/src/students/pages</a> StudentProfile.jsx</h1>
         <div class='clearfix'>
-
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>0/236</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>0/236</span>
             </div>
-
-
+        
+            
         </div>
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
@@ -707,14 +707,14 @@
 <span class="cstat-no" title="statement not covered" >import {fetchAvailableSubjects, addSubjectToStudent, removeSubjectFromStudent } from "../../api/students.js"</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >import { </span>
-  ArrowLeft,
-  Upload,
-  Plus,
-  CheckCircle,
-  BookOpen,
-  Mail,
-  Phone,
-  MapPin,
+  ArrowLeft, 
+  Upload, 
+  Plus, 
+  CheckCircle, 
+  BookOpen, 
+  Mail, 
+  Phone, 
+  MapPin, 
   Camera,
   Edit2,
   Home,
@@ -768,14 +768,14 @@
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  });</span>
 &nbsp;
-
-
+  
+  
 <span class="cstat-no" title="statement not covered" >  if (isLoading) return &lt;div&gt;Loading Profile...&lt;/div&gt;;</span>
 <span class="cstat-no" title="statement not covered" >  if (isError){</span>
 <span class="cstat-no" title="statement not covered" >    return &lt;div&gt;Error loading profile: {error?.message || "Please login"}&lt;/div&gt;;</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" >  if(!data) return &lt;div&gt;No Profile found..&lt;/div&gt;;</span>
-
+  
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  const img = data.image_url;</span>
   // console.log(data)
@@ -783,7 +783,7 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
 <span class="cstat-no" title="statement not covered" >    &lt;div className="min-h-screen bg-[#F8FAFC] flex flex-col md:flex-row font-sans text-slate-800"&gt;</span>
-
+      
       {/* 1. Sidebar */}
 <span class="cstat-no" title="statement not covered" >      &lt;StudentNavigation activePage="profile" /&gt;</span>
 &nbsp;
@@ -791,7 +791,7 @@
       {/* 2. Main Content */}
 <span class="cstat-no" title="statement not covered" >      &lt;main className="flex-1 md:ml-64 p-6 md:p-8 pb-24 md:pb-8 animate-in fade-in duration-500"&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;div className="max-w-3xl mx-auto space-y-6"&gt;</span>
-
+          
           {/* Header */}
 <span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-center gap-3 mb-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"&gt;</span>
@@ -819,7 +819,7 @@
 <span class="cstat-no" title="statement not covered" >                  &lt;Camera className="text-white w-6 h-6" /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
-
+              
               {/* Info */}
 <span class="cstat-no" title="statement not covered" >              &lt;div className="flex-1 text-center sm:text-left space-y-2 w-full"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;div className="flex flex-col sm:flex-row justify-between items-center sm:items-start"&gt;</span>
@@ -834,7 +834,7 @@
                     Edit details
 <span class="cstat-no" title="statement not covered" >                  &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
-
+                
 <span class="cstat-no" title="statement not covered" >                &lt;div className="flex flex-wrap justify-center sm:justify-start gap-4 text-sm text-slate-600 pt-2"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;div className="flex items-center gap-1"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;span className="text-slate-400"&gt;Year:&lt;/span&gt;</span>
@@ -1017,7 +1017,7 @@
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/main&gt;</span>
-
+      
 <span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
   );
 <span class="cstat-no" title="statement not covered" >}</span></pre></td></tr></table></pre>
@@ -1027,7 +1027,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-13T17:16:07.670Z
+                at 2026-02-15T04:08:50.121Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -1039,3 +1039,4 @@
         <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
+    

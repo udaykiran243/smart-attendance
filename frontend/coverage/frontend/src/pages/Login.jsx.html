@@ -15,41 +15,41 @@
         }
     </style>
 </head>
-
+    
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/pages</a> Login.jsx</h1>
         <div class='clearfix'>
-
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">95.83% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>138/144</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">61.53% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>8/13</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">57.14% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>4/7</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">95.83% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>138/144</span>
             </div>
-
-
+        
+            
         </div>
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
@@ -512,8 +512,8 @@ export default function Login() {
   }
 &nbsp;
   return (
-    &lt;div className="min-h-screen flex items-center justify-center bg-gray-50 p-4"&gt;
-      &lt;div className="max-w-5xl w-full bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row h-[600px]"&gt;
+    &lt;div className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)] p-4"&gt;
+      &lt;div className="max-w-5xl w-full bg-[var(--bg-card)] rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row h-[600px]"&gt;
 &nbsp;
         {/* Left Side: Login Form */}
         &lt;div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center"&gt;
@@ -521,24 +521,24 @@ export default function Login() {
 &nbsp;
             {/* Header */}
             &lt;div className="space-y-2"&gt;
-              &lt;h1 className="text-3xl font-bold text-gray-900 text-center"&gt;Welcome&lt;/h1&gt;
-              &lt;p className="text-gray-500"&gt;Please enter your details to sign in.&lt;/p&gt;
+              &lt;h1 className="text-3xl font-bold text-[var(--text-main)] text-center"&gt;Welcome&lt;/h1&gt;
+              &lt;p className="text-[var(--text-body)]"&gt;Please enter your details to sign in.&lt;/p&gt;
             &lt;/div&gt;
 &nbsp;
             {/* Social Login Buttons */}
             &lt;div className="w-full"&gt;
-              &lt;button onClick={googleLogin} className="w-full flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 transition"&gt;
+              &lt;button onClick={googleLogin} className="w-full flex items-center justify-center gap-2 py-2.5 border border-[var(--border-color)] rounded-xl hover:bg-[var(--bg-secondary)] transition"&gt;
                 &lt;img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" /&gt;
-                &lt;span className="text-sm font-medium text-gray-700"&gt;Google&lt;/span&gt;
+                &lt;span className="text-sm font-medium text-[var(--text-body)]"&gt;Google&lt;/span&gt;
               &lt;/button&gt;
             &lt;/div&gt;
 &nbsp;
             &lt;div className="relative"&gt;
               &lt;div className="absolute inset-0 flex items-center"&gt;
-                &lt;span className="w-full border-t border-gray-200" /&gt;
+                &lt;span className="w-full border-t border-[var(--border-color)]" /&gt;
               &lt;/div&gt;
               &lt;div className="relative flex justify-center text-xs uppercase"&gt;
-                &lt;span className="bg-white px-2 text-gray-400 font-medium"&gt;Or continue with&lt;/span&gt;
+                &lt;span className="bg-[var(--bg-card)] px-2 text-[var(--text-body)] opacity-70 font-medium"&gt;Or continue with&lt;/span&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 &nbsp;
@@ -548,35 +548,35 @@ export default function Login() {
 &nbsp;
                 {/* Email Input */}
                 &lt;div className="space-y-1.5"&gt;
-                  &lt;label className="text-sm font-semibold text-gray-700"&gt;Email address&lt;/label&gt;
+                  &lt;label className="text-sm font-semibold text-[var(--text-body)]"&gt;Email address&lt;/label&gt;
                   &lt;div className="relative"&gt;
                     &lt;input
                       type="email"
                       placeholder="Enter your email"
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all pl-10"
+                      className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:bg-[var(--bg-card)] transition-all pl-10"
                       value={email}
                       onChange={(e) =&gt; setEmail(e.target.value)}
                     /&gt;
-                    &lt;Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" /&gt;
+                    &lt;Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-body)] opacity-70" /&gt;
                   &lt;/div&gt;
                 &lt;/div&gt;
 &nbsp;
                 {/* Password Input */}
                 &lt;div className="space-y-1.5"&gt;
-                  &lt;label className="text-sm font-semibold text-gray-700"&gt;Password&lt;/label&gt;
+                  &lt;label className="text-sm font-semibold text-[var(--text-body)]"&gt;Password&lt;/label&gt;
                   &lt;div className="relative"&gt;
                     &lt;input
                       type={<span class="branch-0 cbranch-no" title="branch not covered" >showPassword ? "text" : "</span>password"}
                       placeholder="••••••••"
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all pl-10 pr-10"
+                      className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:bg-[var(--bg-card)] transition-all pl-10 pr-10"
                       value={password}
                       onChange={(e) =&gt; setPassword(e.target.value)}
                     /&gt;
-                    &lt;Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" /&gt;
+                    &lt;Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-body)] opacity-70" /&gt;
                     &lt;button
                       type="button"
                       onClick={<span class="fstat-no" title="function not covered" >() =&gt; setShowPassword(!showPassword)}</span>
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-body)] opacity-70 hover:opacity-100 focus:outline-none"
                     &gt;
                       {<span class="branch-0 cbranch-no" title="branch not covered" >showPassword ? &lt;EyeOff size={18} /&gt; : &lt;</span>Eye size={18} /&gt;}
                     &lt;/button&gt;
@@ -589,10 +589,10 @@ export default function Login() {
                     &lt;input type="checkbox"
                       checked={remember}
                       onChange={<span class="fstat-no" title="function not covered" >(e) =&gt; setRemeber(e.target.checked)}</span>
-                      className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" /&gt;
-                    &lt;span className="text-sm text-gray-500 select-none"&gt;Remember me&lt;/span&gt;
+                      className="w-4 h-4 rounded border-[var(--border-color)] text-[var(--primary)] focus:ring-[var(--primary)]" /&gt;
+                    &lt;span className="text-sm text-[var(--text-body)] select-none"&gt;Remember me&lt;/span&gt;
                   &lt;/label&gt;
-                  &lt;Link to="/forgot-password" className="text-sm font-medium text-indigo-600 hover:text-indigo-700 hover:underline"&gt;
+                  &lt;Link to="/forgot-password" className="text-sm font-medium text-[var(--primary)] opacity-80 hover:text-[var(--primary)] hover:underline"&gt;
                     Forgot password?
                   &lt;/Link&gt;
                 &lt;/div&gt;
@@ -600,17 +600,17 @@ export default function Login() {
 &nbsp;
               {/* Error Message */}
               {error &amp;&amp; (
-                &lt;p className="text-red-500 text-sm font-medium text-center"&gt;{error}&lt;/p&gt;
+                &lt;p className="text-[var(--danger)] text-sm font-medium text-center"&gt;{error}&lt;/p&gt;
               )}
 &nbsp;
-              &lt;button className="w-full py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 shadow-md transition-all active:scale-[0.98]"&gt;
+              &lt;button className="w-full py-3 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-xl font-semibold hover:bg-[var(--primary-hover)] hover:text-[var(--text-main)] shadow-md transition-all active:scale-[0.98]"&gt;
                 Sign in
               &lt;/button&gt;
             &lt;/form&gt;
 &nbsp;
-            &lt;p className="text-center text-sm text-gray-500"&gt;
+            &lt;p className="text-center text-sm text-[var(--text-body)]"&gt;
               Don't have an account yet?{" "}
-              &lt;Link to="/register" className="font-semibold text-indigo-600 hover:underline"&gt;
+              &lt;Link to="/register" className="font-semibold text-[var(--primary)] hover:underline"&gt;
                 Register for free
               &lt;/Link&gt;
             &lt;/p&gt;
@@ -619,19 +619,19 @@ export default function Login() {
         &lt;/div&gt;
 &nbsp;
         {/* Right Side: Illustration/Image */}
-        &lt;div className="hidden md:block w-1/2 bg-indigo-50 relative overflow-hidden"&gt;
+        &lt;div className="hidden md:block w-1/2 bg-[var(--bg-secondary)] relative overflow-hidden"&gt;
           {/* Abstract blobs/gradient for background */}
-          &lt;div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 opacity-10"&gt;&lt;/div&gt;
+          &lt;div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-[var(--primary)] to-[var(--primary)] opacity-10"&gt;&lt;/div&gt;
 &nbsp;
           &lt;div className="absolute inset-0 flex items-center justify-center p-12"&gt;
             &lt;div className="text-center space-y-4 relative z-10"&gt;
-              &lt;div className="w-64 h-64 bg-white/30 backdrop-blur-xl rounded-full mx-auto flex items-center justify-center border border-white/50 shadow-lg mb-8 relative"&gt;
+              &lt;div className="w-64 h-64 bg-[var(--bg-card)]/30 backdrop-blur-xl rounded-full mx-auto flex items-center justify-center border border-[var(--bg-card)]/50 shadow-lg mb-8 relative"&gt;
                 {/* Placeholder for the 3D illustration shown in design */}
-                &lt;div className="w-48 h-48 bg-indigo-600 rounded-full opacity-20 blur-3xl absolute"&gt;&lt;/div&gt;
+                &lt;div className="w-48 h-48 bg-[var(--primary)] rounded-full opacity-20 blur-3xl absolute"&gt;&lt;/div&gt;
                 &lt;span className="text-6xl"&gt;🎓&lt;/span&gt;
               &lt;/div&gt;
-              &lt;h2 className="text-2xl font-bold text-gray-800"&gt;Smart Attendance System&lt;/h2&gt;
-              &lt;p className="text-gray-600 max-w-sm mx-auto"&gt;
+              &lt;h2 className="text-2xl font-bold text-[var(--text-main)]"&gt;Smart Attendance System&lt;/h2&gt;
+              &lt;p className="text-[var(--text-body)] max-w-sm mx-auto"&gt;
                 Automate your classroom attendance with face recognition. Secure, fast, and reliable.
               &lt;/p&gt;
             &lt;/div&gt;
@@ -649,7 +649,7 @@ export default function Login() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-13T17:16:07.670Z
+                at 2026-02-15T04:08:50.121Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -661,3 +661,4 @@ export default function Login() {
         <script src="../../../block-navigation.js"></script>
     </body>
 </html>
+    

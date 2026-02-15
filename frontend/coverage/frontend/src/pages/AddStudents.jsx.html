@@ -15,41 +15,41 @@
         }
     </style>
 </head>
-
+    
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/pages</a> AddStudents.jsx</h1>
         <div class='clearfix'>
-
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>0/204</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>0/204</span>
             </div>
-
-
+        
+            
         </div>
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
@@ -601,15 +601,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useEffect, useState } from "react";<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
 <span class="cstat-no" title="statement not covered" >import { </span>
-  Search,
-  RefreshCw,
-  CheckCircle,
-  LayoutDashboard,
-  CalendarCheck,
-  Users,
-  BarChart2,
-  FileText,
-  UserPlus,
+  Search, 
+  RefreshCw, 
+  CheckCircle, 
+  LayoutDashboard, 
+  CalendarCheck, 
+  Users, 
+  BarChart2, 
+  FileText, 
+  UserPlus, 
   LogOut,
   ChevronDown,
   Check,
@@ -629,7 +629,7 @@
 <span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    fetchMySubjects().then(setSubjects);</span>
 <span class="cstat-no" title="statement not covered" >  }, []);</span>
-
+  
 <span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if(!selectedSubject) return;</span>
 <span class="cstat-no" title="statement not covered" >    fetchSubjectStudents(selectedSubject).then(setStudents);</span>
@@ -673,26 +673,26 @@
 &nbsp;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div className="flex h-screen bg-[#F8FAFC]"&gt;</span>
-
+<span class="cstat-no" title="statement not covered" >    &lt;div className="flex h-screen bg-[var(--bg-primary)]"&gt;</span>
+      
       {/* --- MAIN CONTENT --- */}
 <span class="cstat-no" title="statement not covered" >      &lt;main className="flex-1 m-auto p-8 overflow-y-auto"&gt;</span>
-
+        
         {/* Header Section */}
 <span class="cstat-no" title="statement not covered" >        &lt;div className="flex justify-between items-start mb-8"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;div&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="flex items-center gap-3 mb-1"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;h2 className="text-2xl font-bold text-gray-900"&gt;Add students&lt;/h2&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span className="px-2.5 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs font-bold"&gt;Unverified list&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;h2 className="text-2xl font-bold text-[var(--text-main)]"&gt;Add students&lt;/h2&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;span className="px-2.5 py-0.5 bg-[var(--primary)]/10 text-[var(--primary)] rounded-full text-xs font-bold"&gt;Unverified list&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;p className="text-gray-500 text-sm"&gt;Students who added subjects in their profile appear here automatically. Review and verify them for face-recognition attendance.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;p className="text-[var(--text-body)] opacity-90 text-sm"&gt;Students who added subjects in their profile appear here automatically. Review and verify them for face-recognition attendance.&lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-center gap-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;button className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 flex items-center gap-2 transition shadow-sm"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="px-4 py-2 bg-[var(--bg-card)] border border-[var(--border-color)] text-[var(--text-body)] rounded-lg text-sm font-medium hover:bg-[var(--bg-hover)] flex items-center gap-2 transition shadow-sm"&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;RefreshCw size={16} /&gt;</span>
               Refresh
 <span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;button className="px-4 py-2 bg-[#4F46E5] text-white rounded-lg text-sm font-medium hover:bg-[#4338ca] flex items-center gap-2 shadow-md transition"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="px-4 py-2 bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-lg text-sm font-medium hover:bg-[var(--primary-hover)] flex items-center gap-2 shadow-md transition"&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;CheckCircle size={16} /&gt;</span>
               Verify all visible
 <span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
@@ -700,26 +700,26 @@
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 &nbsp;
         {/* Filters Section */}
-<span class="cstat-no" title="statement not covered" >        &lt;div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 mb-6"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] shadow-sm p-5 mb-6"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="md:col-span-5 space-y-1.5"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;label className="text-xs font-semibold text-gray-500"&gt;Search&lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;label className="text-xs font-semibold text-[var(--text-body)] opacity-90"&gt;Search&lt;/label&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;div className="relative"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-body)] opacity-70" size={18} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;input </span>
 <span class="cstat-no" title="statement not covered" >                  type="text" </span>
 <span class="cstat-no" title="statement not covered" >                  placeholder="Search by name or roll number" </span>
-<span class="cstat-no" title="statement not covered" >                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"</span>
+<span class="cstat-no" title="statement not covered" >                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--primary)] outline-none"</span>
 <span class="cstat-no" title="statement not covered" >                /&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="md:col-span-4 space-y-1.5"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;label className="text-xs font-semibold text-gray-500"&gt;Subjects&lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;label className="text-xs font-semibold text-[var(--text-body)] opacity-90"&gt;Subjects&lt;/label&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;div className="relative"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;select</span>
 <span class="cstat-no" title="statement not covered" >                  value={selectedSubject || ""}</span>
 <span class="cstat-no" title="statement not covered" >                  onChange={(e) =&gt; setSelectedSubject(e.target.value)}</span>
-<span class="cstat-no" title="statement not covered" >                  className="w-full pl-3 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg text-sm appearance-none focus:ring-2 focus:ring-indigo-500 outline-none text-gray-700"</span>
+<span class="cstat-no" title="statement not covered" >                  className="w-full pl-3 pr-10 py-2.5 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg text-sm appearance-none focus:ring-2 focus:ring-[var(--primary)] outline-none text-[var(--text-main)]"</span>
                 &gt;
 <span class="cstat-no" title="statement not covered" >                  &lt;option value=""&gt;Select subject&lt;/option&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  {subjects.map(s =&gt; (</span>
@@ -728,36 +728,36 @@
 <span class="cstat-no" title="statement not covered" >                    &lt;/option&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  ))}</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/select&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-body)] opacity-70 pointer-events-none" size={16} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="md:col-span-3 space-y-1.5"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;label className="text-xs font-semibold text-gray-500"&gt;Year&lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;label className="text-xs font-semibold text-[var(--text-body)] opacity-90"&gt;Year&lt;/label&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;div className="relative"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;select className="w-full pl-3 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg text-sm appearance-none focus:ring-2 focus:ring-indigo-500 outline-none text-gray-700"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;select className="w-full pl-3 pr-10 py-2.5 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg text-sm appearance-none focus:ring-2 focus:ring-[var(--primary)] outline-none text-[var(--text-main)]"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;option&gt;All years&lt;/option&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;option&gt;1st Year&lt;/option&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;option&gt;2nd Year&lt;/option&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/select&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-body)] opacity-70 pointer-events-none" size={16} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >          &lt;div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-50"&gt;</span>
-<span class="cstat-no" title="statement not covered" >             &lt;p className="text-xs text-gray-500"&gt;</span>
-<span class="cstat-no" title="statement not covered" >               &lt;span className="font-bold text-gray-700"&gt;Auto-populated list:&lt;/span&gt; Whenever a student adds a new subject on their profile, they appear here as &lt;span className="font-bold text-gray-900"&gt;unverified&lt;/span&gt; until you confirm or delete.</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4 border-t border-[var(--border-color)]"&gt;</span>
+<span class="cstat-no" title="statement not covered" >             &lt;p className="text-xs text-[var(--text-body)] opacity-80"&gt;</span>
+<span class="cstat-no" title="statement not covered" >               &lt;span className="font-bold text-[var(--text-body)]"&gt;Auto-populated list:&lt;/span&gt; Whenever a student adds a new subject on their profile, they appear here as &lt;span className="font-bold text-[var(--text-main)]"&gt;unverified&lt;/span&gt; until you confirm or delete.</span>
 <span class="cstat-no" title="statement not covered" >             &lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >             &lt;div className="flex bg-gray-100 p-1 rounded-lg"&gt;</span>
+<span class="cstat-no" title="statement not covered" >             &lt;div className="flex bg-[var(--bg-secondary)] p-1 rounded-lg"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;button </span>
 <span class="cstat-no" title="statement not covered" >                  onClick={() =&gt; setFilterType("Unverified only")}</span>
-<span class="cstat-no" title="statement not covered" >                  className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${filterType === "Unverified only" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:text-gray-700"}`}</span>
+<span class="cstat-no" title="statement not covered" >                  className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${filterType === "Unverified only" ? "bg-[var(--action-info-bg)] text-[var(--text-on-primary)] shadow-sm" : "text-[var(--text-body)] hover:text-[var(--text-main)]"}`}</span>
 <span class="cstat-no" title="statement not covered" >                &gt;</span>
                   Unverified only
 <span class="cstat-no" title="statement not covered" >                &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;button </span>
 <span class="cstat-no" title="statement not covered" >                  onClick={() =&gt; setFilterType("All requests")}</span>
-<span class="cstat-no" title="statement not covered" >                  className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${filterType === "All requests" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:text-gray-700"}`}</span>
+<span class="cstat-no" title="statement not covered" >                  className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${filterType === "All requests" ? "bg-[var(--primary)] text-[var(--text-on-primary)] shadow-sm" : "text-[var(--text-body)] hover:text-[var(--text-main)] hover:bg-[var(--primary-hover)]"}`}</span>
 <span class="cstat-no" title="statement not covered" >                &gt;</span>
                   All requests
 <span class="cstat-no" title="statement not covered" >                &lt;/button&gt;</span>
@@ -766,21 +766,21 @@
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 &nbsp;
         {/* List Section */}
-<span class="cstat-no" title="statement not covered" >        &lt;div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="p-5 border-b border-gray-100 flex justify-between items-center"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] shadow-sm overflow-hidden"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="p-5 border-b border-[var(--border-color)] flex justify-between items-center"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;h3 className="font-bold text-gray-900 text-lg"&gt;Unverified students&lt;/h3&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;p className="text-sm text-gray-500"&gt;Review face images, details, and linked subjects before allowing them into attendance sessions.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;h3 className="font-bold text-[var(--text-main)] text-lg"&gt;Unverified students&lt;/h3&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;p className="text-sm text-[var(--text-body)] opacity-80"&gt;Review face images, details, and linked subjects before allowing them into attendance sessions.&lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;span className="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;span className="bg-[var(--warning)]/10 text-[var(--warning)] text-xs font-bold px-3 py-1 rounded-full"&gt;</span>
 <span class="cstat-no" title="statement not covered" >              {unverifiedCount} pending approvals</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >          &lt;div className="overflow-x-auto"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;table className="w-full min-w-[900px]"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;thead className="bg-gray-50"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;tr className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;thead className="bg-[var(--bg-secondary)]"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;tr className="text-left text-xs font-semibold text-[var(--text-body)] uppercase tracking-wider"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;th className="px-6 py-4"&gt;Roll no&lt;/th&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;th className="px-6 py-4"&gt;Student&lt;/th&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;th className="px-6 py-4"&gt;Year&lt;/th&gt;</span>
@@ -789,31 +789,31 @@
 <span class="cstat-no" title="statement not covered" >                  &lt;th className="px-6 py-4"&gt;Actions&lt;/th&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/tr&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/thead&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;tbody className="divide-y divide-gray-50"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;tbody className="divide-y divide-[var(--border-color)]"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                {filteredStudents.map((student) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >                  &lt;tr key={student.id} className="hover:bg-gray-50 transition-colors group"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;tr key={student.id} className="hover:bg-[var(--bg-hover)] transition-colors group"&gt;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                    &lt;td className="px-6 py-4 text-sm font-medium text-gray-700"&gt;{student.roll}&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;td className="px-6 py-4 text-sm font-medium text-[var(--text-body)]"&gt;{student.roll}&lt;/td&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;td className="px-6 py-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                      &lt;div className="flex items-center gap-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;img src={student.avatar} alt={student.name} className="w-10 h-10 rounded-full bg-gray-100" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;img src={student.avatar} alt={student.name} className="w-10 h-10 rounded-full bg-[var(--bg-secondary)]" /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;div&gt;</span>
-<span class="cstat-no" title="statement not covered" >                          &lt;div className="font-semibold text-gray-900"&gt;{student.name}&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >                          &lt;div className="text-xs text-gray-400"&gt;Added {student.addedTime}&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;div className="font-semibold text-[var(--text-main)]"&gt;{student.name}&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                          &lt;div className="text-xs text-[var(--text-body)] opacity-70"&gt;Added {student.addedTime}&lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                      &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/td&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;td className="px-6 py-4 text-sm text-gray-600"&gt;{student.year}&lt;/td&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;td className="px-6 py-4 text-sm text-gray-800 max-w-[200px]"&gt;{student.branch}&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;td className="px-6 py-4 text-sm text-[var(--text-body)]"&gt;{student.year}&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;td className="px-6 py-4 text-sm text-[var(--text-main)] max-w-[200px]"&gt;{student.branch}&lt;/td&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;td className="px-6 py-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                      {student.status === "Unverified" ? (</span>
-<span class="cstat-no" title="statement not covered" >                         &lt;span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700 border border-amber-200"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                           &lt;span className="w-1.5 h-1.5 rounded-full bg-amber-500"&gt;&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >                         &lt;span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--warning)]/10 text-[var(--warning)] border-[var(--warning)]/30"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                           &lt;span className="w-1.5 h-1.5 rounded-full bg-[var(--warning)]"&gt;&lt;/span&gt;</span>
                            Unverified
 <span class="cstat-no" title="statement not covered" >                         &lt;/span&gt;</span>
                       ) : (
-<span class="cstat-no" title="statement not covered" >                        &lt;span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-500 border border-gray-200"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                           &lt;span className="w-1.5 h-1.5 rounded-full bg-gray-400"&gt;&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--bg-secondary)] text-[var(--text-body)] border-[var(--border-color)]"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                           &lt;span className="w-1.5 h-1.5 rounded-full bg-[var(--text-body)] opacity-70"&gt;&lt;/span&gt;</span>
                            Waiting image
 <span class="cstat-no" title="statement not covered" >                         &lt;/span&gt;</span>
                       )}
@@ -823,7 +823,7 @@
 <span class="cstat-no" title="statement not covered" >                        {!student.verified &amp;&amp; (</span>
 <span class="cstat-no" title="statement not covered" >                          &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                            onClick={() =&gt; handleVerify(student.id)}</span>
-<span class="cstat-no" title="statement not covered" >                            className="flex items-center gap-1 px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-bold hover:bg-emerald-600 transition shadow-sm"</span>
+<span class="cstat-no" title="statement not covered" >                            className="flex items-center gap-1 px-3 py-1.5 bg-[var(--success)] text-[var(--text-on-primary)] rounded-lg text-xs font-bold hover:bg-[var(--success)]/90 transition shadow-sm"</span>
                           &gt;
 <span class="cstat-no" title="statement not covered" >                            &lt;Check size={14} /&gt; Verify</span>
 <span class="cstat-no" title="statement not covered" >                          &lt;/button&gt;</span>
@@ -831,7 +831,7 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                        &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                          onClick={() =&gt; handleDelete(student.id)}</span>
-<span class="cstat-no" title="statement not covered" >                          className="px-3 py-1.5 border border-rose-200 text-rose-500 rounded-lg text-xs font-bold hover:bg-rose-50 transition"</span>
+<span class="cstat-no" title="statement not covered" >                          className="px-3 py-1.5 border border-[var(--danger)]/30 text-[var(--danger)] rounded-lg text-xs font-bold hover:bg-[var(--danger)]/10 transition"</span>
                         &gt;
 <span class="cstat-no" title="statement not covered" >                          &lt;X size={14} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;/button&gt;</span>
@@ -843,13 +843,13 @@
 <span class="cstat-no" title="statement not covered" >              &lt;/tbody&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/table&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
-
-<span class="cstat-no" title="statement not covered" >          &lt;div className="p-4 bg-gray-50 border-t border-gray-200 text-xs text-gray-500 text-center"&gt;</span>
+          
+<span class="cstat-no" title="statement not covered" >          &lt;div className="p-4 bg-[var(--bg-secondary)] border-t border-[var(--border-color)] text-xs text-[var(--text-body)] opacity-90 text-center"&gt;</span>
              Older requests are hidden. Adjust filters above to see all previously verified or deleted students.
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
-
-<span class="cstat-no" title="statement not covered" >        &lt;p className="mt-6 text-xs text-gray-400 text-center"&gt;</span>
+        
+<span class="cstat-no" title="statement not covered" >        &lt;p className="mt-6 text-xs text-[var(--text-body)] opacity-80 text-center"&gt;</span>
           Note: Verified students will start appearing in the attendance marking list for their selected subjects and classes. You can revoke access anytime by deleting their entry from the main Students page.
 <span class="cstat-no" title="statement not covered" >        &lt;/p&gt;</span>
 &nbsp;
@@ -862,7 +862,7 @@
 // eslint-disable-next-line no-unused-vars
 <span class="cstat-no" title="statement not covered" >function NavItem({ icon: IconComp, label }) {</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;button className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-600 hover:bg-gray-50 rounded-lg text-sm font-medium transition-colors"&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;button className="w-full flex items-center gap-3 px-4 py-2.5 text-[var(--text-body)] hover:bg-[var(--bg-hover)] rounded-lg text-sm font-medium transition-colors"&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;IconComp size={18} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;span&gt;{label}&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >    &lt;/button&gt;</span>
@@ -874,7 +874,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-13T17:16:07.670Z
+                at 2026-02-15T04:08:50.121Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -886,3 +886,4 @@
         <script src="../../../block-navigation.js"></script>
     </body>
 </html>
+    

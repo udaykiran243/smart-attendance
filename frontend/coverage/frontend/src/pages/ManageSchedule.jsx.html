@@ -15,41 +15,41 @@
         }
     </style>
 </head>
-
+    
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/pages</a> ManageSchedule.jsx</h1>
         <div class='clearfix'>
-
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>0/674</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>0/674</span>
             </div>
-
-
+        
+            
         </div>
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
@@ -1721,10 +1721,10 @@
 <span class="cstat-no" title="statement not covered" >  const getCalendarDays = () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    const year = currentDate.getFullYear();</span>
 <span class="cstat-no" title="statement not covered" >    const month = currentDate.getMonth();</span>
-
+    
 <span class="cstat-no" title="statement not covered" >    const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 = Sunday</span>
 <span class="cstat-no" title="statement not covered" >    const daysInMonth = new Date(year, month + 1, 0).getDate();</span>
-
+    
 <span class="cstat-no" title="statement not covered" >    const daysArray = [];</span>
 <span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; firstDayOfMonth; i++) {</span>
 <span class="cstat-no" title="statement not covered" >      daysArray.push(null);</span>
@@ -1977,13 +1977,13 @@
 <span class="cstat-no" title="statement not covered" >  return (</span>
 <span class="cstat-no" title="statement not covered" >    &lt;div className="min-h-screen bg-[var(--bg-primary)] font-sans text-[var(--text-main)] transition-colors duration-200"&gt;</span>
 <span class="cstat-no" title="statement not covered" >      {saveTemplateNotification &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className="fixed top-4 right-4 z-50 bg-emerald-500 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-2 animate-in slide-in-from-top duration-300"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="fixed top-4 right-4 z-50 bg-[var(--success)] text-[var(--text-on-primary)] px-4 py-3 rounded-lg shadow-lg flex items-center gap-2 animate-in slide-in-from-top duration-300"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;CheckCircle size={20} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;span&gt;Saved as {saveTemplateNotification}!&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
       )}
 <span class="cstat-no" title="statement not covered" >      {isEditModalOpen &amp;&amp; currentClass &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--overlay)] backdrop-blur-sm animate-in fade-in duration-200"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;div className="bg-[var(--bg-card)] border border-[var(--border-color)] w-full max-w-md p-6 rounded-2xl shadow-2xl space-y-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="flex justify-between items-center border-b border-[var(--border-color)] pb-3"&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;h3 className="text-xl font-bold"&gt;Edit Class&lt;/h3&gt;</span>
@@ -2083,7 +2083,7 @@
 <span class="cstat-no" title="statement not covered" >              &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                onClick={saveEditedClass}</span>
-<span class="cstat-no" title="statement not covered" >                className="px-4 py-2 text-sm font-medium bg-[var(--primary)] text-white rounded-lg shadow-sm hover:opacity-90 transition flex items-center gap-2"</span>
+<span class="cstat-no" title="statement not covered" >                className="px-4 py-2 text-sm font-medium bg-[var(--primary)] text-[var(--text-on-primary)] rounded-lg shadow-sm hover:opacity-90 transition flex items-center gap-2"</span>
               &gt;
 <span class="cstat-no" title="statement not covered" >                &lt;Save size={16} /&gt; Save Changes</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/button&gt;</span>
@@ -2093,7 +2093,7 @@
       )}
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      {previewTemplate &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-sm"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="fixed inset-0 z-60 flex items-center justify-center bg-[var(--overlay)] backdrop-blur-sm"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;div className="bg-[var(--bg-card)] border border-[var(--border-color)] w-full max-w-2xl p-6 rounded-2xl shadow-2xl"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="flex justify-between items-center border-b border-[var(--border-color)] pb-3 mb-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;h3 className="text-xl font-bold"&gt;{previewTemplate.name}&lt;/h3&gt;</span>
@@ -2142,7 +2142,7 @@
 <span class="cstat-no" title="statement not covered" >                  applyTemplate(previewTemplate);</span>
 <span class="cstat-no" title="statement not covered" >                  setPreviewTemplate(null);</span>
 <span class="cstat-no" title="statement not covered" >                }}</span>
-<span class="cstat-no" title="statement not covered" >                className="px-4 py-2 bg-[var(--primary)] text-white rounded-lg hover:opacity-90 transition"</span>
+<span class="cstat-no" title="statement not covered" >                className="px-4 py-2 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-lg hover:opacity-90 transition"</span>
 <span class="cstat-no" title="statement not covered" >              &gt;</span>
                 Apply Template
 <span class="cstat-no" title="statement not covered" >              &lt;/button&gt;</span>
@@ -2163,7 +2163,7 @@
 <span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-center gap-3"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;button</span>
 <span class="cstat-no" title="statement not covered" >              onClick={handleSave}</span>
-<span class="cstat-no" title="statement not covered" >              className="px-6 py-2.5 bg-[var(--primary)] text-white rounded-xl font-semibold shadow-sm transition active:scale-95"</span>
+<span class="cstat-no" title="statement not covered" >              className="px-6 py-2.5 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-xl font-semibold shadow-sm transition active:scale-95"</span>
 <span class="cstat-no" title="statement not covered" >            &gt;</span>
               Save schedule
 <span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
@@ -2181,7 +2181,7 @@
 <span class="cstat-no" title="statement not covered" >                    onClick={() =&gt; setActiveDay(day)}</span>
 <span class="cstat-no" title="statement not covered" >                    className={`px-5 py-1.5 rounded-full text-sm font-medium transition-all ${</span>
 <span class="cstat-no" title="statement not covered" >                      activeDay === day</span>
-<span class="cstat-no" title="statement not covered" >                        ? "bg-[var(--primary)] text-white"</span>
+<span class="cstat-no" title="statement not covered" >                        ? "bg-[var(--primary)] text-[var(--text-on-primary)]"</span>
 <span class="cstat-no" title="statement not covered" >                        : "text-[var(--text-body)]"</span>
 <span class="cstat-no" title="statement not covered" >                    }`}</span>
                   &gt;
@@ -2191,7 +2191,7 @@
 <span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                onClick={handleAddClass}</span>
-<span class="cstat-no" title="statement not covered" >                className="flex items-center gap-2 bg-[var(--primary)] text-white px-4 py-2 rounded-lg text-sm font-medium"</span>
+<span class="cstat-no" title="statement not covered" >                className="flex items-center gap-2 bg-[var(--primary)] text-[var(--text-on-primary)] px-4 py-2 rounded-lg text-sm font-medium"</span>
               &gt;
 <span class="cstat-no" title="statement not covered" >                &lt;Plus size={16} /&gt; Add class</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/button&gt;</span>
@@ -2216,7 +2216,7 @@
 <span class="cstat-no" title="statement not covered" >                      &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >                      &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                        onClick={() =&gt; handleDeleteClass(cls.id)}</span>
-<span class="cstat-no" title="statement not covered" >                        className="p-1.5 text-[var(--text-body)] hover:text-red-500 hover:bg-red-50/10 rounded-md transition"</span>
+<span class="cstat-no" title="statement not covered" >                        className="p-1.5 text-[var(--text-body)] hover:text-[var(--danger)] hover:bg-[var(--danger)]/10 rounded-md transition"</span>
 <span class="cstat-no" title="statement not covered" >                        title="Delete Class"</span>
                       &gt;
 <span class="cstat-no" title="statement not covered" >                        &lt;Trash2 size={16} /&gt;</span>
@@ -2236,7 +2236,7 @@
 <span class="cstat-no" title="statement not covered" >                      · {cls.teacher}</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;span</span>
-<span class="cstat-no" title="statement not covered" >                      className={`text-white text-[10px] font-bold px-2 py-0.5 rounded ${cls.status === "Active" ? "bg-emerald-500" : "bg-amber-500"}`}</span>
+<span class="cstat-no" title="statement not covered" >                      className={`text-[var(--text-on-primary)] text-[10px] font-bold px-2 py-0.5 rounded ${cls.status === "Active" ? "bg-[var(--success)]" : "bg-[var(--warning)]"}`}</span>
                     &gt;
 <span class="cstat-no" title="statement not covered" >                      {cls.status}</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/span&gt;</span>
@@ -2290,7 +2290,7 @@
 <span class="cstat-no" title="statement not covered" >                                    type="button"</span>
 <span class="cstat-no" title="statement not covered" >                                    onClick={() =&gt;</span>
 <span class="cstat-no" title="statement not covered" >                                       handleMonthSelect(idx)}</span>
-<span class="cstat-no" title="statement not covered" >                                    className={`text-sm px-3 py-1.5 rounded-lg text-left transition ${currentDate.getMonth() === idx ? "bg-[var(--primary)] text-white" : "hover:bg-[var(--bg-secondary)]"}`}</span>
+<span class="cstat-no" title="statement not covered" >                                    className={`text-sm px-3 py-1.5 rounded-lg text-left transition ${currentDate.getMonth() === idx ? "bg-[var(--primary)] text-[var(--text-on-primary)]" : "hover:bg-[var(--bg-secondary)]"}`}</span>
                                   &gt;
 <span class="cstat-no" title="statement not covered" >                                    {m}</span>
 <span class="cstat-no" title="statement not covered" >                                  &lt;/button&gt;</span>
@@ -2309,7 +2309,7 @@
 <span class="cstat-no" title="statement not covered" >                                    type="button"</span>
 <span class="cstat-no" title="statement not covered" >                                    data-selected={currentDate.getFullYear() === year}</span>
 <span class="cstat-no" title="statement not covered" >                                    onClick={() =&gt; handleYearSelect(year)}</span>
-<span class="cstat-no" title="statement not covered" >                                    className={`block w-full text-sm px-2 py-1.5 rounded-lg text-center transition ${currentDate.getFullYear() === year ? "bg-[var(--primary)] text-white" : "hover:bg-[var(--bg-secondary)]"}`}</span>
+<span class="cstat-no" title="statement not covered" >                                    className={`block w-full text-sm px-2 py-1.5 rounded-lg text-center transition ${currentDate.getFullYear() === year ? "bg-[var(--primary)] text-[var(--text-on-primary)]" : "hover:bg-[var(--bg-secondary)]"}`}</span>
                                   &gt;
 <span class="cstat-no" title="statement not covered" >                                    {year}</span>
 <span class="cstat-no" title="statement not covered" >                                  &lt;/button&gt;</span>
@@ -2317,7 +2317,7 @@
 <span class="cstat-no" title="statement not covered" >                              &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                           &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;/div&gt;</span>
-
+                        
                         {/* Footer Close */}
 <span class="cstat-no" title="statement not covered" >                        &lt;div className="mt-3 pt-3 border-t border-[var(--border-color)]"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                           &lt;button </span>
@@ -2349,7 +2349,7 @@
 <span class="cstat-no" title="statement not covered" >                  const isToday = day === today.getDate() &amp;&amp; currentDate.getMonth() === today.getMonth() &amp;&amp; currentDate.getFullYear() === today.getFullYear();</span>
 <span class="cstat-no" title="statement not covered" >                  return (</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;div key={idx} className="flex justify-center"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                      &lt;span className={`h-8 w-8 flex items-center justify-center rounded-lg transition cursor-pointer ${isToday ? "bg-[var(--primary)] text-white font-bold shadow-md" : "text-[var(--text-main)] hover:bg-[var(--bg-secondary)]"}`}&gt;</span>
+<span class="cstat-no" title="statement not covered" >                      &lt;span className={`h-8 w-8 flex items-center justify-center rounded-lg transition cursor-pointer ${isToday ? "bg-[var(--primary)] text-[var(--text-on-primary)] font-bold shadow-md" : "text-[var(--text-main)] hover:bg-[var(--bg-secondary)]"}`}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        {day}</span>
 <span class="cstat-no" title="statement not covered" >                      &lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
@@ -2405,7 +2405,7 @@
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        {showTemplates &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="fixed inset-0 bg-[var(--overlay)] z-50 flex items-center justify-center"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="bg-[var(--bg-card)] w-full max-w-2xl p-6 rounded-2xl border border-[var(--border-color)] shadow-xl"&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;div className="flex justify-between items-center mb-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;h3 className="text-lg font-bold"&gt;Custom Templates&lt;/h3&gt;</span>
@@ -2451,13 +2451,13 @@
                             Preview
 <span class="cstat-no" title="statement not covered" >                          &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >                          &lt;button</span>
-<span class="cstat-no" title="statement not covered" >                            className="text-xs bg-[var(--primary)] text-white px-3 py-1.5 rounded hover:opacity-90 transition"</span>
+<span class="cstat-no" title="statement not covered" >                            className="text-xs bg-[var(--primary)] text-[var(--text-on-primary)] px-3 py-1.5 rounded hover:opacity-90 transition"</span>
 <span class="cstat-no" title="statement not covered" >                            onClick={() =&gt; applyTemplate(t)}</span>
 <span class="cstat-no" title="statement not covered" >                          &gt;</span>
                             Apply
 <span class="cstat-no" title="statement not covered" >                          &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >                          &lt;button</span>
-<span class="cstat-no" title="statement not covered" >                            className="text-xs text-red-500 hover:bg-red-50/10 px-2 py-1.5 rounded transition"</span>
+<span class="cstat-no" title="statement not covered" >                            className="text-xs text-[var(--danger)] hover:bg-[var(--danger)]/10 px-2 py-1.5 rounded transition"</span>
 <span class="cstat-no" title="statement not covered" >                            onClick={() =&gt; deleteTemplate(t.id)}</span>
 <span class="cstat-no" title="statement not covered" >                            title="Delete template"</span>
                           &gt;
@@ -2470,7 +2470,7 @@
                 )}
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                &lt;button</span>
-<span class="cstat-no" title="statement not covered" >                  className="w-full bg-[var(--primary)] text-white py-3 rounded-lg font-medium hover:opacity-90 transition shadow-md flex items-center justify-center gap-2"</span>
+<span class="cstat-no" title="statement not covered" >                  className="w-full bg-[var(--primary)] text-[var(--text-on-primary)] py-3 rounded-lg font-medium hover:opacity-90 transition shadow-md flex items-center justify-center gap-2"</span>
 <span class="cstat-no" title="statement not covered" >                  onClick={saveTemplate}</span>
                 &gt;
 <span class="cstat-no" title="statement not covered" >                  &lt;Save size={18} /&gt;</span>
@@ -2491,7 +2491,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-13T17:16:07.670Z
+                at 2026-02-15T04:08:50.121Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
@@ -2503,3 +2503,4 @@
         <script src="../../../block-navigation.js"></script>
     </body>
 </html>
+    

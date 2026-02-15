@@ -15,41 +15,41 @@
         }
     </style>
 </head>
-
+    
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../../../../index.html">All files</a> / <a href="index.html">frontend/src/students/pages</a> StudentForecast.jsx</h1>
         <div class='clearfix'>
-
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>0/147</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>0/147</span>
             </div>
-
-
+        
+            
         </div>
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
@@ -459,10 +459,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useState } from "react";<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
 <span class="cstat-no" title="statement not covered" >import { </span>
-  ArrowLeft,
-  Info,
-  CheckCircle,
-  AlertCircle,
+  ArrowLeft, 
+  Info, 
+  CheckCircle, 
+  AlertCircle, 
   Calculator,
   History, Home, BookOpen, TrendingUp, User
 } from "lucide-react";
@@ -471,7 +471,7 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export default function StudentForecast() {</span>
 <span class="cstat-no" title="statement not covered" >  const [classesToAttend, setClassesToAttend] = useState(12);</span>
-
+  
   // Mock calculation constants
 <span class="cstat-no" title="statement not covered" >  const currentAttendance = 74;</span>
 <span class="cstat-no" title="statement not covered" >  const totalClassesSoFar = 40;</span>
@@ -495,14 +495,14 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
 <span class="cstat-no" title="statement not covered" >    &lt;div className="min-h-screen bg-[#F8FAFC] flex flex-col md:flex-row font-sans text-slate-800"&gt;</span>
-
+      
       {/* 1. Sidebar */}
 <span class="cstat-no" title="statement not covered" >      &lt;StudentNavigation activePage="forecast" /&gt;</span>
 &nbsp;
       {/* 2. Main Content */}
 <span class="cstat-no" title="statement not covered" >      &lt;main className="flex-1 md:ml-64 p-6 md:p-8 pb-24 md:pb-8 animate-in fade-in duration-500"&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;div className="max-w-2xl mx-auto space-y-6"&gt;</span>
-
+          
           {/* Header */}
 <span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-center gap-3 mb-2"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"&gt;</span>
@@ -534,7 +534,7 @@
 &nbsp;
           {/* Simulation Card */}
 <span class="cstat-no" title="statement not covered" >          &lt;div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-8"&gt;</span>
-
+            
 <span class="cstat-no" title="statement not covered" >            &lt;div className="flex justify-between items-center"&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;h3 className="text-lg font-bold text-slate-800"&gt;Forecast your score&lt;/h3&gt;</span>
@@ -551,7 +551,7 @@
 <span class="cstat-no" title="statement not covered" >                &lt;span className="text-slate-600"&gt;If I attend the next number of classes&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;span className="text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full"&gt;{classesToAttend} classes&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
-
+              
 <span class="cstat-no" title="statement not covered" >              &lt;div className="relative h-2 bg-gray-100 rounded-full"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;div </span>
 <span class="cstat-no" title="statement not covered" >                  className="absolute top-0 left-0 h-full bg-indigo-600 rounded-full transition-all duration-150" </span>
@@ -575,7 +575,7 @@
 &nbsp;
             {/* Results Grid */}
 <span class="cstat-no" title="statement not covered" >            &lt;div className="flex flex-col sm:flex-row items-center gap-8 pt-4"&gt;</span>
-
+              
               {/* Donut Chart */}
 <span class="cstat-no" title="statement not covered" >              &lt;div className="relative w-32 h-32 flex-shrink-0"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;ResponsiveContainer width="100%" height="100%"&gt;</span>
@@ -605,7 +605,7 @@
 &nbsp;
               {/* Stats &amp; Verdict */}
 <span class="cstat-no" title="statement not covered" >              &lt;div className="flex-1 w-full space-y-6"&gt;</span>
-
+                
 <span class="cstat-no" title="statement not covered" >                &lt;div className="grid grid-cols-2 gap-4 text-sm"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;div className="space-y-1"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;p className="text-gray-500 text-xs"&gt;Current score&lt;/p&gt;</span>
@@ -661,7 +661,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-13T17:16:07.670Z
+                at 2026-02-15T04:08:50.121Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -673,3 +673,4 @@
         <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
+    

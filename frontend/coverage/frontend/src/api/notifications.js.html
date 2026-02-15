@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend/src/pages/OAuthCallback.jsx</title>
+    <title>Code coverage report for frontend/src/api/notifications.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/pages</a> OAuthCallback.jsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/api</a> notifications.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/40</span>
+                <span class='fraction'>0/56</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/40</span>
+                <span class='fraction'>0/56</span>
             </div>
         
             
@@ -122,22 +122,11 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -146,100 +135,123 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { useEffect, useRef } from "react";<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
-<span class="cstat-no" title="statement not covered" >import { useNavigate } from "react-router-dom";</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import api from "./axiosClient";<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default function OAuthCallback() {</span>
-<span class="cstat-no" title="statement not covered" >  const navigate = useNavigate();</span>
-<span class="cstat-no" title="statement not covered" >  const processedRef = useRef(false); // prevents double-processing (StrictMode/dev reloads)</span>
+<span class="cstat-no" title="statement not covered" >/**</span>
+<span class="cstat-no" title="statement not covered" > * Send absence notifications to students</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >export const sendAbsenceNotifications = async (data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const response = await api.post("/notifications/absence", data);</span>
+<span class="cstat-no" title="statement not covered" >  return response.data;</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (processedRef.current) return; // already handled</span>
-<span class="cstat-no" title="statement not covered" >    processedRef.current = true;</span>
+<span class="cstat-no" title="statement not covered" >/**</span>
+<span class="cstat-no" title="statement not covered" > * Send low attendance warnings to students</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >export const sendLowAttendanceWarnings = async (warnings) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const response = await api.post("/notifications/low-attendance", warnings);</span>
+<span class="cstat-no" title="statement not covered" >  return response.data;</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const rawHash = window.location.hash || "";</span>
-<span class="cstat-no" title="statement not covered" >    const cleanHash = rawHash.replace(/^#/, ""); // remove leading '#'</span>
-<span class="cstat-no" title="statement not covered" >    const hashParams = new URLSearchParams(cleanHash);</span>
+<span class="cstat-no" title="statement not covered" >/**</span>
+<span class="cstat-no" title="statement not covered" > * Send assignment reminders to students</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >export const sendAssignmentReminders = async (data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const response = await api.post("/notifications/assignment", data);</span>
+<span class="cstat-no" title="statement not covered" >  return response.data;</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const queryParams = new URLSearchParams(window.location.search);</span>
+<span class="cstat-no" title="statement not covered" >/**</span>
+<span class="cstat-no" title="statement not covered" > * Send exam alerts to students</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >export const sendExamAlerts = async (data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const response = await api.post("/notifications/exam", data);</span>
+<span class="cstat-no" title="statement not covered" >  return response.data;</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const token =</span>
-<span class="cstat-no" title="statement not covered" >      hashParams.get("token") || queryParams.get("token") || null;</span>
-<span class="cstat-no" title="statement not covered" >    const email =</span>
-<span class="cstat-no" title="statement not covered" >      hashParams.get("email") || queryParams.get("email") || null;</span>
-<span class="cstat-no" title="statement not covered" >    const role =</span>
-<span class="cstat-no" title="statement not covered" >      hashParams.get("role") || queryParams.get("role") || null;</span>
-<span class="cstat-no" title="statement not covered" >    const userId =</span>
-<span class="cstat-no" title="statement not covered" >      hashParams.get("userId") || queryParams.get("userId") || null;</span>
-<span class="cstat-no" title="statement not covered" >    const name =</span>
-<span class="cstat-no" title="statement not covered" >      hashParams.get("name") || queryParams.get("name") || null;</span>
+<span class="cstat-no" title="statement not covered" >/**</span>
+<span class="cstat-no" title="statement not covered" > * Send custom message to students</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >export const sendCustomMessage = async (data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const response = await api.post("/notifications/custom", data);</span>
+<span class="cstat-no" title="statement not covered" >  return response.data;</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-    // console.log(token,email,userId,name,role);
+<span class="cstat-no" title="statement not covered" >/**</span>
+<span class="cstat-no" title="statement not covered" > * Get email statistics</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >export const getEmailStats = async (days = 30) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const response = await api.get(`/notifications/stats?days=${days}`);</span>
+<span class="cstat-no" title="statement not covered" >  return response.data;</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!token || !role) {</span>
-        // Nothing to do — go back to login (or show error)
-<span class="cstat-no" title="statement not covered" >      navigate("/login");</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-&nbsp;
-   // Save as your normal login flow does
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      localStorage.setItem("token", token);</span>
-<span class="cstat-no" title="statement not covered" >      localStorage.setItem("user", JSON.stringify({ email, role , name, userId}));</span>
-      // optionally set global auth header for axios/fetch here
-      // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-<span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
-<span class="cstat-no" title="statement not covered" >      console.error("Failed to save OAuth token to localStorage", err);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-&nbsp;
-    // Remove token from URL so re-loads/mounts don't see it again
-    // We replace the current history entry with same path but no hash/search
-<span class="cstat-no" title="statement not covered" >    const cleanUrl =</span>
-<span class="cstat-no" title="statement not covered" >      window.location.origin + window.location.pathname + window.location.search;</span>
-<span class="cstat-no" title="statement not covered" >    window.history.replaceState({}, document.title, cleanUrl);</span>
-&nbsp;
-    // Navigate to role-based dashboard
-<span class="cstat-no" title="statement not covered" >    if (role === "teacher") navigate("/dashboard");</span>
-<span class="cstat-no" title="statement not covered" >    else navigate("/student-dashboard");</span>
-<span class="cstat-no" title="statement not covered" >  }, [navigate]);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return &lt;div&gt;Signing you in…&lt;/div&gt;;</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" >/**</span>
+<span class="cstat-no" title="statement not covered" > * Check for duplicate email sends</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >export const checkDuplicateEmail = async (notificationType, recipientEmail, withinHours = 1) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const response = await api.get("/notifications/check-duplicate", {</span>
+<span class="cstat-no" title="statement not covered" >    params: {</span>
+<span class="cstat-no" title="statement not covered" >      notification_type: notificationType,</span>
+<span class="cstat-no" title="statement not covered" >      recipient_email: recipientEmail,</span>
+<span class="cstat-no" title="statement not covered" >      within_hours: withinHours,</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >  });</span>
+<span class="cstat-no" title="statement not covered" >  return response.data;</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

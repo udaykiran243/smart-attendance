@@ -15,41 +15,41 @@
         }
     </style>
 </head>
-
+    
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../../../../index.html">All files</a> / <a href="index.html">frontend/src/students/pages</a> StudentSubjects.jsx</h1>
         <div class='clearfix'>
-
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>0/121</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/1</span>
             </div>
-
-
+        
+            
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>0/121</span>
             </div>
-
-
+        
+            
         </div>
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
@@ -412,14 +412,14 @@
 <span class="cstat-no" title="statement not covered" >      try {</span>
 <span class="cstat-no" title="statement not covered" >        setLoading(true);</span>
 <span class="cstat-no" title="statement not covered" >        const data = await fetchMySubjects();</span>
-
+        
         // Transform data to match UI
 <span class="cstat-no" title="statement not covered" >        const transformed = data.map(sub =&gt; {</span>
           // Standard Logic: 75% threshold
 <span class="cstat-no" title="statement not covered" >          const att = sub.attendance || 0;</span>
 <span class="cstat-no" title="statement not covered" >          const total = sub.total || 0;</span>
 <span class="cstat-no" title="statement not covered" >          const attended = sub.attended || 0;</span>
-
+          
 <span class="cstat-no" title="statement not covered" >          let status = "On track";</span>
 <span class="cstat-no" title="statement not covered" >          let statusColor = "bg-emerald-100 text-emerald-700";</span>
 <span class="cstat-no" title="statement not covered" >          let barColor = "bg-emerald-500";</span>
@@ -435,7 +435,7 @@
 <span class="cstat-no" title="statement not covered" >             status = "At risk";</span>
 <span class="cstat-no" title="statement not covered" >             statusColor = "bg-rose-100 text-rose-700";</span>
 <span class="cstat-no" title="statement not covered" >             barColor = "bg-rose-500";</span>
-
+             
              // How many more classes to attend to reach 75%?
              // (attended + x) / (total + x) &gt;= 0.75
              // attended + x &gt;= 0.75*total + 0.75x
@@ -491,7 +491,7 @@
       {/* 3. Main Content */}
 <span class="cstat-no" title="statement not covered" >      &lt;main className="md:ml-64 p-6 md:p-8 pb-24 md:pb-8 animate-in fade-in duration-500"&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;div className="max-w-4xl mx-auto space-y-6"&gt;</span>
-
+          
           {/* Header */}
 <span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-center gap-3 mb-8"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"&gt;</span>
@@ -502,7 +502,7 @@
 <span class="cstat-no" title="statement not covered" >              &lt;p className="text-slate-500 text-sm"&gt;Attendance overview by subject&lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
-
+          
 <span class="cstat-no" title="statement not covered" >          {error &amp;&amp; (</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="p-4 bg-rose-50 text-rose-600 rounded-lg"&gt;</span>
 <span class="cstat-no" title="statement not covered" >               {error}</span>
@@ -518,7 +518,7 @@
             ) : (
 <span class="cstat-no" title="statement not covered" >                subjects.map((sub) =&gt; (</span>
 <span class="cstat-no" title="statement not covered" >              &lt;div key={sub.id} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"&gt;</span>
-
+                
                 {/* Card Header */}
 <span class="cstat-no" title="statement not covered" >                &lt;div className="flex justify-between items-start mb-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                  &lt;h3 className="text-lg font-semibold text-slate-800"&gt;{sub.name}&lt;/h3&gt;</span>
@@ -571,7 +571,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-13T17:16:07.670Z
+                at 2026-02-15T04:08:50.121Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
@@ -583,3 +583,4 @@
         <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
+    
