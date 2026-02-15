@@ -10,6 +10,7 @@ const navLinks = [
   { to: "/analytics", label: "Analytics" },
   { to: "/reports", label: "Reports" },
   { to: "/manage-schedule", label: "Schedule" },
+  { to: "/messaging", label: "Messaging" },
 ];
 
 /**
@@ -20,7 +21,7 @@ const navLinks = [
  * @param {Function} props.setTheme - Callback to update the theme.
  * @returns {React.ReactElement} The rendered header.
  */
-export default function Header({ theme, setTheme }) {
+export default function Header() {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -28,6 +29,7 @@ export default function Header({ theme, setTheme }) {
   useEffect(() => {
     try {
       const storedData = localStorage.getItem("user");
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (!storedData) { setUser(null); return; }
       setUser(JSON.parse(storedData));
     } catch (e) {
@@ -38,6 +40,7 @@ export default function Header({ theme, setTheme }) {
 
   // Close mobile menu on route change
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMenuOpen(false);
   }, [location.pathname]);
 

@@ -12,12 +12,15 @@ import Settings from "./pages/Settings";
 import AddStudents from "./pages/AddStudents";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Messaging from "./pages/Messaging";
 import StudentDashboard from "./students/pages/StudentDashboard.jsx"
 import StudentSubjects from "./students/pages/StudentSubjects.jsx";
 import StudentForecast from "./students/pages/StudentForecast.jsx";
 import StudentProfile from "./students/pages/StudentProfile.jsx"
 import OAuthCallback from "./pages/OAuthCallback.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/ForgotPassword";
+
 
 /**
  * Redirects the user to the appropriate home page based on their role.
@@ -43,7 +46,8 @@ const hideNavbarRoutes = [
   "/student-forecast",
   "/student-profile",
   "/login",
-  "/register"
+  "/register",
+  "/forgot-password",
 ];
 
 /**
@@ -70,6 +74,7 @@ export default function App() {
           <Route path="/analytics" element={<Analytics/>}/>
           <Route path="/reports" element={<Reports/>}/>
           <Route path="/manage-schedule" element={<ProtectedRoute><ManageSchedule /></ProtectedRoute>} />
+          <Route path="/messaging" element={<ProtectedRoute><Messaging /></ProtectedRoute>} />
           <Route path="/settings" element={<Settings/>}/>
           <Route path="/add-students" element={<AddStudents/>}/>
           <Route path="/login" element={<Login/>}/>
@@ -81,8 +86,9 @@ export default function App() {
           <Route path="/student-subjects" element={<StudentSubjects/>}/>
           <Route path="/student-forecast" element={<StudentForecast/>}/>
           <Route path="/student-profile" element={<StudentProfile/>}/>
-
           <Route path="/oauth-callback" element={<OAuthCallback />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
         </Routes>
       </main>
     </div>

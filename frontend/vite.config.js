@@ -1,19 +1,35 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      jsxRuntime: 'automatic',
+    }),
+  ],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.js',
+    css: false,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+    },
+    // Exclude e2e tests from vitest
+    exclude: ['e2e/**/*', 'node_modules/**/*'],
+  },
   server: {
     port: 5173,
     proxy: {
-      '/api' : {
-        target: 'http://127.0.0.1:8000',
+      '/api': {
+        target: 'https://smart-attendance-api-i87a.onrender.com',
         changeOrigin: true,
         secure: false,
       },
-      '/static' : {
-        target: 'http://127.0.0.1:8000',
+      '/static': {
+        target: 'https://smart-attendance-api-i87a.onrender.com',
         changeOrigin: true,
         secure: false,
       }
