@@ -348,13 +348,15 @@ export default function Dashboard() {
                   <p className="text-[var(--text-body)]">No classes scheduled for today</p>
                 </div>
               ) : (
-                todayClasses.map((cls) => {
-                  const status = getClassStatus(cls.start_time, cls.end_time);
-                  const borderColorMap = {
-                    success: 'border-l-[var(--success)]',
-                    warning: 'border-l-[var(--warning)]',
-                    primary: 'border-l-[var(--primary)]'
-                  };
+                (() => {
+                  const now = new Date();
+                  return todayClasses.map((cls) => {
+                    const status = getClassStatus(cls.start_time, cls.end_time, now);
+                    const borderColorMap = {
+                      success: 'border-l-[var(--success)]',
+                      warning: 'border-l-[var(--warning)]',
+                      primary: 'border-l-[var(--primary)]'
+                    };
                   const bgColorMap = {
                     success: 'bg-[var(--success)]/10 text-[var(--success)]',
                     warning: 'bg-[var(--warning)]/10 text-[var(--warning)]',
