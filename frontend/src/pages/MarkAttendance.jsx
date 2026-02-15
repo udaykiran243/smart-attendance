@@ -40,20 +40,29 @@ export default function MarkAttendance() {
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
   
   const [currentCoords, setCurrentCoords] = useState(null);
+  const [locationError, setLocationError] = useState(null);
+  const currentCoordsRef = useRef(null);
 
   useEffect(() => {
     if (!navigator.geolocation) {
       console.warn("Geolocation not supported");
+      setLocationError("Geolocation is not supported by your browser");
       return;
     }
     const watchId = navigator.geolocation.watchPosition(
       (pos) => {
-        setCurrentCoords({
+        const coords = {
           latitude: pos.coords.latitude,
           longitude: pos.coords.longitude,
-        });
+        };
+        setCurrentCoords(coords);
+        currentCoordsRef.current = coords;
+        setLocationError(null);
       },
-      (err) => console.error("Location error:", err),
+      (err) => {
+        console.error("Location error:", err);
+        setLocationError("Location access denied. Please enable location services.");
+      },
       { enableHighAccuracy: true }
     );
     return () => navigator.geolocation.clearWatch(watchId);
@@ -140,11 +149,11 @@ export default function MarkAttendance() {
     if (!selectedSubject || !webcamRef.current) return;
 
     const interval = setInterval(() => {
-      captureAndSend(webcamRef, selectedSubject, setDetections, currentCoords);
+      captureAndSend(webcamRef, selectedSubject, setDetections, currentCoordsRef.current);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [selectedSubject, currentCoords]);
+  }, [selectedSubject]);
 
   const presentStudents = Object.values(attendanceMap)
     .filter((s) => s.status === "present")
@@ -264,6 +273,16 @@ export default function MarkAttendance() {
 
         {/* --- MAIN CONTENT GRID --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          {locationError && (
+            <div className="lg:col-span-12 flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700">
+               <AlertCircle className="w-5 h-5 flex-shrink-0" />
+               <div>
+                 <h4 className="font-semibold text-sm">Location Service Issue</h4>
+                 <p className="text-xs">{locationError}</p>
+               </div>
+            </div>
+          )}
           
           {/* LEFT: CAMERA FEED (8 cols) */}
           <div className="lg:col-span-8 space-y-3">

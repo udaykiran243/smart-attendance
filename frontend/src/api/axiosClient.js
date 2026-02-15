@@ -40,7 +40,10 @@ api.interceptors.response.use(
           }
         } catch (refreshError) {
           console.error("Refresh token failed", refreshError);
-          // Optional: Redirect to login or clear storage
+          // Clear storage and redirect to login
+          localStorage.removeItem("token");
+          localStorage.removeItem("refresh_token");
+          window.location.href = "/login";
         }
       }
     }
