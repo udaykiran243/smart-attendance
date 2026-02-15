@@ -19,6 +19,7 @@ from app.services.attendance_daily import (
     ensure_indexes as ensure_attendance_daily_indexes,
 )
 from app.services.ml_client import ml_client
+from app.db.nonce_store import close_redis
 
 # New Imports
 from prometheus_fastapi_instrumentator import Instrumentator

@@ -208,7 +208,12 @@ async def add_subject(payload: dict, current: dict = Depends(get_current_teacher
         lng_raw = payload.get("longitude")
         
         # Check for valid values (allow 0 but reject empty strings or None)
-        if lat_raw is not None and lng_raw is not None and lat_raw != "" and lng_raw != "":
+        if (
+            lat_raw is not None
+            and lng_raw is not None
+            and lat_raw != ""
+            and lng_raw != ""
+        ):
             try:
                 lat = float(lat_raw)
                 lng = float(lng_raw)
@@ -223,7 +228,10 @@ async def add_subject(payload: dict, current: dict = Depends(get_current_teacher
 
                 location = {"lat": lat, "long": lng, "radius": rad}
             except (ValueError, TypeError):
-                raise HTTPException(status_code=400, detail="Invalid location coordinates or radius")
+                raise HTTPException(
+                    status_code=400,
+                    detail="Invalid location coordinates or radius",
+                )
 
     subject = await add_subject_for_teacher(
         current["id"],

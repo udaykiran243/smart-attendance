@@ -58,7 +58,7 @@ async def mark_attendance(payload: Dict):
         if req_lat is None or req_long is None:
             raise HTTPException(
                 status_code=400,
-                detail="Location coordinates (latitude, longitude) required for this subject",
+                detail="Location coordinates (latitude, longitude) required",
             )
 
         try:
