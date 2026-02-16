@@ -30,6 +30,9 @@ router = APIRouter(prefix="/api/reports", tags=["Reports"])
 # Maximum number of attendance records to load into memory at once
 MAX_RECORDS = 10000
 
+# Default attendance threshold percentage for "Good" status
+DEFAULT_ATTENDANCE_THRESHOLD = 75
+
 
 def _safe_filename(name: str) -> str:
     """Sanitize a string for use in a Content-Disposition filename.
@@ -51,6 +54,39 @@ def _sanitize_csv_value(value: str) -> str:
     if isinstance(value, str) and value and value[0] in ('=', '+', '-', '@'):
         return f"'{value}"
     return value
+
+
+def _calculate_attendance_stats(
+    present: int, absent: int, threshold: int = DEFAULT_ATTENDANCE_THRESHOLD
+) -> tuple[int, float, str, str]:
+    """Calculate attendance statistics and determine status.
+
+    Args:
+        present: Number of classes attended
+        absent: Number of classes missed
+        threshold: Percentage threshold for "Good" status
+
+    Returns:
+        tuple: (total, percentage, status, color)
+            - total: Total number of classes
+            - percentage: Attendance percentage
+            - status: Status label ("Good", "Warning", or "At Risk")
+            - color: Color for status display ("green", "orange", or "red")
+    """
+    total = present + absent
+    percentage = 0 if total == 0 else round((present / total) * 100, 1)
+
+    if percentage >= threshold:
+        status = "Good"
+        color = "green"
+    elif percentage >= threshold - 10:
+        status = "Warning"
+        color = "orange"
+    else:
+        status = "At Risk"
+        color = "red"
+
+    return total, percentage, status, color
 
 
 async def _get_subject_and_validate(subject_id: str, current_teacher: dict):
@@ -302,9 +338,6 @@ async def export_attendance_pdf(
             "Attended", "Percentage", "Status"
         ]]
 
-        # Default threshold for status calculation
-        threshold = 75
-
         for s in subject_students:
             # Only include verified students
             if not s.get("verified", False):
@@ -314,25 +347,14 @@ async def export_attendance_pdf(
             student_profile = students_map.get(student_id_str, {})
             user = users_map.get(student_id_str, {})
             
-            # Get attendance counts
+            # Get attendance counts and calculate stats
             attendance = s.get("attendance", {})
             present = attendance.get("present", 0)
             absent = attendance.get("absent", 0)
-            total = present + absent
             
-            # Calculate percentage
-            percentage = 0 if total == 0 else round((present / total) * 100, 1)
-            
-            # Determine status and color
-            if percentage >= threshold:
-                status = "Good"
-                status_color = "green"
-            elif percentage >= threshold - 10:
-                status = "Warning"
-                status_color = "orange"
-            else:
-                status = "At Risk"
-                status_color = "red"
+            total, percentage, status, status_color = _calculate_attendance_stats(
+                present, absent
+            )
             
             # Get student info
             name = html.escape(user.get("name", "Unknown"))
@@ -482,9 +504,6 @@ async def export_attendance_csv(
             "Attended", "Percentage", "Status"
         ])
 
-        # Default threshold for status calculation
-        threshold = 75
-
         for s in subject_students:
             # Only include verified students
             if not s.get("verified", False):
@@ -494,22 +513,14 @@ async def export_attendance_csv(
             student_profile = students_map.get(student_id_str, {})
             user = users_map.get(student_id_str, {})
             
-            # Get attendance counts
+            # Get attendance counts and calculate stats
             attendance = s.get("attendance", {})
             present = attendance.get("present", 0)
             absent = attendance.get("absent", 0)
-            total = present + absent
             
-            # Calculate percentage
-            percentage = 0 if total == 0 else round((present / total) * 100, 1)
-            
-            # Determine status
-            if percentage >= threshold:
-                status = "Good"
-            elif percentage >= threshold - 10:
-                status = "Warning"
-            else:
-                status = "At Risk"
+            total, percentage, status, _ = _calculate_attendance_stats(
+                present, absent
+            )
             
             # Get student info
             name = user.get("name", "Unknown")
