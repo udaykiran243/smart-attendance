@@ -468,7 +468,7 @@ async def export_attendance_csv(
 
         return StreamingResponse(
             csv_bytes,
-            media_type="text/csv",
+            media_type="text/csv; charset=utf-8",
             headers={"Content-Disposition": f'attachment; filename="{filename}"'},
         )
 
