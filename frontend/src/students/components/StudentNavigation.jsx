@@ -3,38 +3,76 @@ import { Link, useNavigate } from "react-router-dom";
 import { Home, BookOpen, TrendingUp, User, CircleUser, LogOut } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-/* ---------------------- DESKTOP NAV ITEM ---------------------- */
-// eslint-disable-next-line no-unused-vars
-function DesktopItem({ icon: IconComponent, label, active, path }) {
   return (
-    <Link
-      to={path}
-      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-        active
-          ? "bg-blue-50 text-blue-700"
-          : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-      }`}
-    >
-      <IconComponent size={20} />
-      {label}
-    </Link>
+    <aside className="w-full md:w-64 bg-white md:fixed md:inset-y-0 border-r border-gray-100 flex flex-col z-20">
+      <div className="p-6 flex items-center gap-3">
+        <div className="w-8 h-8 bg-blue-600 rounded-xl flex items-center justify-center">
+          <img src="/logo.png" className="w-5 h-5 opacity-90" alt="logo" onError={(e) => e.target.style.display='none'} />
+        </div>
+        <span className="font-bold text-xl text-slate-800 tracking-tight">Smart Attend</span>
+      </div>
+
+      <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
+        <NavItem
+          icon={LayoutDashboard}
+          label="Home"
+          active={activePage === 'dashboard'}
+          path="/student-dashboard"
+        />
+        <NavItem
+          icon={BookOpen}
+          label="Subjects"
+          active={activePage === 'subjects'}
+          path="/student-subjects"
+        />
+        <NavItem
+          icon={TrendingUp}
+          label="Forecast"
+          active={activePage === 'forecast'}
+          path="/student-forecast"
+        />
+        <NavItem
+          icon={User}
+          label="Profile"
+          active={activePage === 'profile'}
+          path="/student-profile"
+        />
+      </nav>
+
+      <div className="p-4 border-t border-gray-100">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 px-4 py-3 w-full text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 group font-medium text-sm"
+        >
+          <LogOut size={18} className="group-hover:scale-110 transition-transform" />
+          Logout
+        </button>
+      </div>
+    </aside>
   );
 }
 
-/* ---------------------- MOBILE NAV ITEM ---------------------- */
-// eslint-disable-next-line no-unused-vars
-function MobileItem({ icon: IconComponent, label, active, path }) {
+StudentNavigation.propTypes = {
+  activePage: PropTypes.string.isRequired,
+};
+
+function NavItem({ icon: Icon, label, active, path }) {
   return (
     <Link
       to={path}
-      className={`flex flex-col items-center gap-1 transition-colors ${
-        active ? "text-blue-600" : "text-gray-400 hover:text-gray-600"
+      className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 font-medium text-sm ${
+        active
+          ? "bg-blue-50 text-blue-600 shadow-sm shadow-blue-100"
+          : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
       }`}
     >
-      <div className={`p-1.5 rounded-xl ${active ? "bg-blue-50" : ""}`}>
-        <IconComponent size={20} strokeWidth={active ? 2.5 : 2} />
-      </div>
-      <span className="text-[10px] font-medium">{label}</span>
+      <Icon
+        size={18}
+        className={`transition-transform duration-200 ${
+          active ? "scale-110" : "group-hover:scale-110"
+        }`}
+      />
+      {label}
     </Link>
   );
 }

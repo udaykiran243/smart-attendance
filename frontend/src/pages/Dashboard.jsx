@@ -19,6 +19,7 @@ export default function Dashboard() {
     const data = localStorage.getItem("user");
     return data ? JSON.parse(data) : null;
   });
+  const [showAttendanceModal, setShowAttendanceModal] = useState(false);
   const [mlStatus, setMlStatus] = useState("checking"); // checking, ready, waking-up
   const [todayClasses, setTodayClasses] = useState([]);
   const [loadingSchedule, setLoadingSchedule] = useState(true);
@@ -207,6 +208,10 @@ export default function Dashboard() {
             </Link>
           </div>
         </div>
+
+        {showAttendanceModal && (
+          <StartAttendanceModal onClose={() => setShowAttendanceModal(false)} />
+        )}
 
         {/* --- SECTION 2: MAIN GRID LAYOUT --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

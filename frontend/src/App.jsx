@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Analytics from "./pages/Analytics";
 import Reports from "./pages/Reports";
 import ManageSchedule from "./pages/ManageSchedule"; // ← Added
+import BroadcastPage from "./pages/Broadcast/BroadcastPage";
 import Settings from "./pages/Settings";
 import AddStudents from "./pages/AddStudents";
 import Login from "./pages/Login";
@@ -79,6 +80,7 @@ export default function App() {
           <Route path="/reports" element={<Reports />} />
           <Route path="/manage-schedule" element={<ProtectedRoute><ManageSchedule /></ProtectedRoute>} />
           <Route path="/messaging" element={<ProtectedRoute><Messaging /></ProtectedRoute>} />
+          <Route path="/broadcast" element={<ProtectedRoute><BroadcastPage /></ProtectedRoute>} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/add-students" element={<AddStudents />} />
           <Route path="/login" element={<Login />} />
