@@ -206,7 +206,11 @@ export default function StudentForecast() {
                     <p className="text-[var(--text-body)] opacity-90 text-xs">{t('forecast.simulation.needed_for_75')}</p>
                     <p className="font-bold text-[var(--text-main)]">{canReachWithinSlider
                        ? t('forecast.simulation.more_classes', { count: classesNeeded })
-                       : t('forecast.simulation.more_classes_overflow', { count: classesNeeded })}
+                       : t('forecast.simulation.more_classes_overflow', { 
+                           count: classesNeeded,
+                           minCount: classesNeeded,
+                           sliderMax: futureClassesMax,
+                         })}
                     </p>
                   </div>
                 </div>
