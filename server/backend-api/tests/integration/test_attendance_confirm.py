@@ -21,22 +21,11 @@ async def test_confirm_attendance_invalid_subject_id_returns_400(client: AsyncCl
 
 
 @pytest.mark.asyncio
-async def test_confirm_attendance_invalid_student_id_returns_400(
-    client: AsyncClient, db
-):
-    subject_id = ObjectId()
-    await db.subjects.insert_one(
-        {
-            "_id": subject_id,
-            "professor_ids": [ObjectId()],
-            "students": [],
-        }
-    )
-
+async def test_confirm_attendance_invalid_student_id_returns_400(client: AsyncClient):
     response = await client.post(
         "/api/attendance/confirm",
         json={
-            "subject_id": str(subject_id),
+            "subject_id": str(ObjectId()),
             "present_students": ["bad-student-id"],
             "absent_students": [],
         },
@@ -47,24 +36,30 @@ async def test_confirm_attendance_invalid_student_id_returns_400(
 
 
 @pytest.mark.asyncio
-async def test_confirm_attendance_overlap_students_returns_400(
-    client: AsyncClient, db
+async def test_confirm_attendance_invalid_absent_student_id_returns_400(
+    client: AsyncClient,
 ):
-    subject_id = ObjectId()
-    student_id = ObjectId()
-
-    await db.subjects.insert_one(
-        {
-            "_id": subject_id,
-            "professor_ids": [ObjectId()],
-            "students": [],
-        }
+    response = await client.post(
+        "/api/attendance/confirm",
+        json={
+            "subject_id": str(ObjectId()),
+            "present_students": [],
+            "absent_students": ["bad-student-id"],
+        },
     )
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Invalid ObjectId at absent_students[0]"
+
+
+@pytest.mark.asyncio
+async def test_confirm_attendance_overlap_students_returns_400(client: AsyncClient):
+    student_id = ObjectId()
 
     response = await client.post(
         "/api/attendance/confirm",
         json={
-            "subject_id": str(subject_id),
+            "subject_id": str(ObjectId()),
             "present_students": [str(student_id)],
             "absent_students": [str(student_id)],
         },

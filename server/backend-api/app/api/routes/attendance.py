@@ -1,9 +1,10 @@
 import base64
 import logging
 from datetime import date
-from typing import Dict, List
+from typing import Dict, List, Set, Tuple
 
 from bson import ObjectId
+from bson import errors as bson_errors
 from fastapi import APIRouter, HTTPException
 
 from geopy.distance import geodesic
@@ -17,6 +18,9 @@ router = APIRouter(prefix="/api/attendance", tags=["Attendance"])
 
 
 def _parse_object_id(value: str, field_name: str) -> ObjectId:
+    if value is None:
+        raise HTTPException(status_code=400, detail=f"{field_name} is required")
+
     if not isinstance(value, str) or not value.strip():
         raise HTTPException(
             status_code=400,
@@ -24,13 +28,13 @@ def _parse_object_id(value: str, field_name: str) -> ObjectId:
         )
     try:
         return ObjectId(value)
-    except Exception:
+    except (bson_errors.InvalidId, TypeError):
         raise HTTPException(status_code=400, detail=f"Invalid {field_name}")
 
 
 def _parse_object_id_list(
     values: List[str], field_name: str
-) -> tuple[List[ObjectId], set[str]]:
+) -> Tuple[List[ObjectId], Set[str]]:
     if not isinstance(values, list):
         raise HTTPException(
             status_code=400,
@@ -38,16 +42,17 @@ def _parse_object_id_list(
         )
 
     parsed_ids: List[ObjectId] = []
-    unique_ids: set[str] = set()
+    unique_ids: Set[str] = set()
 
     for idx, value in enumerate(values):
         if not isinstance(value, str) or not value.strip():
             raise HTTPException(
-                status_code=400, detail=f"{field_name}[{idx}] must be a non-empty string"
+                status_code=400,
+                detail=f"{field_name}[{idx}] must be a non-empty string",
             )
         try:
             oid = ObjectId(value)
-        except Exception:
+        except (bson_errors.InvalidId, TypeError):
             raise HTTPException(
                 status_code=400,
                 detail=f"Invalid ObjectId at {field_name}[{idx}]",
@@ -280,6 +285,10 @@ async def confirm_attendance(payload: Dict):
       "present_students": ["id1", "id2", ...],
       "absent_students": ["id3", "id4", ...]
     }
+
+    response:
+    - present_updated / absent_updated are counts of unique IDs submitted
+      after deduplication (not the count of DB rows modified).
     """
     subject_oid = _parse_object_id(payload.get("subject_id"), "subject_id")
     present_oids, present_set = _parse_object_id_list(
