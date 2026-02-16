@@ -108,14 +108,20 @@ async def _get_attendance_and_students(
         try:
             date_filter["$gte"] = datetime.strptime(start_date, "%Y-%m-%d")
         except ValueError:
-            pass
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid date format for start_date. Expected YYYY-MM-DD.",
+            )
     if end_date:
         try:
             # Set to end of day so the entire last day is included
             end_dt = datetime.strptime(end_date, "%Y-%m-%d")
             date_filter["$lte"] = end_dt.replace(hour=23, minute=59, second=59)
         except ValueError:
-            pass
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid date format for end_date. Expected YYYY-MM-DD.",
+            )
     if date_filter:
         query["date"] = date_filter
 
