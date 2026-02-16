@@ -1,95 +1,77 @@
 import React, { useState } from "react";
-import { X, Check, Loader2 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchCurrentUser } from "../api/auth";
-import PropTypes from "prop-types";
+import { X, Check } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function AddSubjectModal({ open, onClose, onSave }) {
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
-
-  // Fetch current user to get their ID (which is the teacher_id)
-  const { data: user } = useQuery({
-    queryKey: ["currentUser"],
-    queryFn: fetchCurrentUser,
-  });
 
   if (!open) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name.trim()) return;
-
-    // Pass the teacher_id automatically
-    onSave({
-      name,
-      code,
-      teacher_id: user?._id // Add the teacher ID here
-    });
-
+    onSave({ name, code });
     setName("");
     setCode("");
-    onClose();
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div
-        className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-          <h3 className="font-bold text-lg text-gray-800">Create New Subject</h3>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+      <div className="bg-[var(--bg-card)] w-full max-w-md rounded-2xl shadow-xl border border-[var(--border-color)] overflow-hidden">
+        <div className="flex justify-between items-center p-4 border-b border-[var(--border-color)]">
+          <h3 className="text-lg font-bold text-[var(--text-main)]">{t('settings.profile.add_subject_modal.title')}</h3>
           <button
             onClick={onClose}
-            className="p-1 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+            className="p-2 hover:bg-[var(--bg-hover)] text-[var(--text-body)] rounded-full transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Subject Name
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-[var(--text-main)]">
+              {t('settings.profile.add_subject_modal.name_label')}
             </label>
             <input
-              type="text"
               required
-              placeholder="e.g. Advanced Mathematics"
-              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+              type="text"
+              placeholder={t('settings.profile.add_subject_modal.name_placeholder')}
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] text-[var(--text-main)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Subject Code <span className="text-gray-400 font-normal">(Optional)</span>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-[var(--text-main)]">
+              {t('settings.profile.add_subject_modal.code_label')}
             </label>
             <input
+              required
               type="text"
-              placeholder="e.g. MTH-401"
-              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all uppercase"
+              placeholder={t('settings.profile.add_subject_modal.code_placeholder')}
               value={code}
               onChange={(e) => setCode(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] text-[var(--text-main)] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all"
             />
           </div>
 
-          <div className="flex gap-3 pt-2">
+          <div className="pt-4 flex gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-colors"
+              className="flex-1 py-2.5 rounded-xl font-medium text-[var(--text-body)] hover:bg-[var(--bg-hover)] border border-[var(--border-color)] transition-colors"
             >
-              Cancel
+              {t('settings.profile.add_subject_modal.cancel')}
             </button>
             <button
               type="submit"
-              disabled={!name.trim()}
-              className="flex-1 px-4 py-2.5 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-lg shadow-blue-200"
+              className="flex-1 py-2.5 rounded-xl font-bold bg-[var(--primary)] text-[var(--text-on-primary)] hover:bg-[var(--primary-hover)] shadow-md transition-all flex items-center justify-center gap-2"
             >
-              Create Subject
+              <Check size={18} />
+              {t('settings.profile.add_subject_modal.add')}
             </button>
           </div>
         </form>
@@ -97,9 +79,3 @@ export default function AddSubjectModal({ open, onClose, onSave }) {
     </div>
   );
 }
-
-AddSubjectModal.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-};

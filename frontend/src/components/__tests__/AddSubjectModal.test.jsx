@@ -36,7 +36,7 @@ describe('AddSubjectModal Component', () => {
         );
 
         // Check modal content is visible
-        expect(screen.getByText(/create new subject/i)).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /add subject/i })).toBeInTheDocument();
 
         // Fill inputs
         const nameInput = screen.getByPlaceholderText(/e.g. advanced mathematics/i);
@@ -45,8 +45,8 @@ describe('AddSubjectModal Component', () => {
         fireEvent.change(nameInput, { target: { value: 'Mathematics' } });
         fireEvent.change(codeInput, { target: { value: 'MTH101' } });
 
-        // Submit - Find button by exact text or better query
-        const addButton = screen.getByRole('button', { name: /create subject/i });
+        // Submit
+        const addButton = screen.getByRole('button', { name: /add subject/i });
         fireEvent.click(addButton);
 
         // Verify onSave called with correct data (excluding teacher_id for now as it depends on async query)
