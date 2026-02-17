@@ -273,7 +273,7 @@ async def refresh_token(request: Request, payload: RefreshTokenRequest):
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Refresh token error: {e}")
+        logger.exception("Refresh token error: %s: %s", type(e).__name__, e)
         raise HTTPException(status_code=401, detail="Invalid or expired refresh token")
 
 
