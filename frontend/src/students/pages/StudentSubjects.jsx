@@ -28,7 +28,7 @@ export default function StudentSubjects() {
           const attended = sub.attended || 0;
           
           let status = "on_track";
-          let statusColor = "bg-[var(--success)]/15 text-[var(--success)]";;
+          let statusColor = "bg-[var(--success)]/15 text-[var(--success)]";
           let barColor = "bg-[var(--success)]";
           let message = "safe_rule";
           let typeColor = "bg-[var(--action-info-bg)]"; // default

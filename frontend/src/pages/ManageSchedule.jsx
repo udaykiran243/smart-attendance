@@ -416,7 +416,7 @@ export default function ManageSchedule() {
       )}
 
       {previewTemplate && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--overlay)] backdrop-blur-sm">
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-[var(--overlay)] backdrop-blur-sm">
           <div className="bg-[var(--bg-card)] border border-[var(--border-color)] w-full max-w-2xl p-6 rounded-2xl shadow-2xl">
             <div className="flex justify-between items-center border-b border-[var(--border-color)] pb-3 mb-4">
               <h3 className="text-xl font-bold">{previewTemplate.name}</h3>

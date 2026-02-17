@@ -631,7 +631,7 @@ export default function Messaging() {
                           type="checkbox"
                           checked={selectedStudents.includes(student.email)}
                           onChange={() => handleStudentToggle(student.email)}
-                          className="w-4 h-4 accent-[var(--primary)] border-[var(--border-color)] rounded"
+                          className="w-4 h-4 accent-[var(--primary)] border-[var(--border-color)] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-card)]"
                         />
                         <div className="flex-1">
                           <div className="text-sm font-medium text-[var(--text-main)]">

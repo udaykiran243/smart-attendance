@@ -77,7 +77,7 @@ export default function QRScanner({ onScanSuccess, onScanError, onClose }) {
 
         {/* Scanner Body */}
         <div className="p-6 pb-8 bg-[var(--bg-primary)]">
-          <div id="reader" className="w-full overflow-hidden rounded-2xl border-2 border-dashed border-[var(--border-color)]  bg-black/90 aspect-square relative shadow-inner">
+          <div id="reader" className="w-full overflow-hidden rounded-2xl border-2 border-dashed border-[var(--border-color)]  bg-[var(--overlay)] aspect-square relative shadow-inner">
             {/* Custom overlay components can be added here if html5-qrcode allows, 
                 but by default it renders its own UI into this div */}
           </div>
