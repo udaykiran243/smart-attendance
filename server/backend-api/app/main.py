@@ -23,7 +23,7 @@ from app.services.attendance_daily import (
 )
 from app.services.ml_client import ml_client
 from app.db.nonce_store import close_redis
-# from app.core.scheduler import start_scheduler, shutdown_scheduler  # Scheduler import
+from app.core.scheduler import start_scheduler, shutdown_scheduler
 
 # New Imports
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -61,8 +61,7 @@ async def lifespan(app: FastAPI):
         await ensure_attendance_daily_indexes()
         logger.info("attendance_daily indexes ensured")
         
-        # Scheduler (Commented out for free tier limits)
-        # start_scheduler()
+        start_scheduler()
     except Exception as e:
         logger.warning(
             f"Could not connect to MongoDB. Application will continue, but DB features will fail. Error: {e}" # noqa: E501
@@ -73,7 +72,7 @@ async def lifespan(app: FastAPI):
     await ml_client.close()
     logger.info("ML client closed")
     await close_redis()
-    # shutdown_scheduler() # Scheduler shutdown
+    shutdown_scheduler()
 
 def create_app() -> FastAPI:
     app = FastAPI(title=APP_NAME, lifespan=lifespan)

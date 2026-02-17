@@ -112,7 +112,7 @@ async def register(
                         "inApp": True,
                         "sound": False,
                     },
-                    "emailPreferences": {},
+                    "emailPreferences": [],
                     "thresholds": {
                         "warningVal": 75,
                         "safeVal": 85,

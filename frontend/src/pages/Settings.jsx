@@ -27,6 +27,7 @@ import {
   patchSettings,
   uploadAvatar,
   addSubject,
+  sendLowAttendanceNotice,
 } from "../api/settings";
 import AddSubjectModal from "../components/AddSubjectModal";
 import { useTranslation } from "react-i18next";
@@ -138,6 +139,21 @@ export default function Settings() {
   // --- helper functions (inside your component) ---
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState(null);
+  const [sendingNotice, setSendingNotice] = useState(false);
+  const [noticeResult, setNoticeResult] = useState(null);
+
+  async function handleSendLowAttendanceNotice() {
+    setSendingNotice(true);
+    setNoticeResult(null);
+    try {
+      const res = await sendLowAttendanceNotice();
+      setNoticeResult({ success: true, message: res.message || "Notices sent successfully" });
+    } catch (err) {
+      setNoticeResult({ success: false, message: err?.response?.data?.detail || err.message || "Failed to send notices" });
+    } finally {
+      setSendingNotice(false);
+    }
+  }
 
   // compute initials for avatar fallback
   function getInitials(name) {
@@ -489,6 +505,30 @@ export default function Settings() {
                       </label>
                     ))}
                   </div>
+                </div>
+
+                {/* Manual Low Attendance Notice */}
+                <div className="space-y-4">
+                  <label className="text-sm font-semibold text-[var(--text-main)]">
+                    Manual Actions
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={handleSendLowAttendanceNotice}
+                      disabled={sendingNotice}
+                      className="px-6 py-2.5 rounded-xl text-sm font-semibold bg-[var(--danger,#ef4444)] text-white hover:opacity-90 shadow-md disabled:opacity-50"
+                    >
+                      {sendingNotice ? "Sending…" : "Send Low Attendance Notice"}
+                    </button>
+                    {noticeResult && (
+                      <span className={`text-sm ${noticeResult.success ? "text-green-600" : "text-[var(--danger,#ef4444)]"}`}>
+                        {noticeResult.message}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-[var(--text-body)] opacity-90">
+                    Manually send low attendance warning emails to students with less than 75% attendance in your subjects.
+                  </p>
                 </div>
 
                 {/* Footer Buttons */}

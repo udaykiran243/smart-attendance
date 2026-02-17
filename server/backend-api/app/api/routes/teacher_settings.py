@@ -1,4 +1,6 @@
 # backend/app/api/routes/settings.py
+import logging
+
 from app.db.mongo import db
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, status
 from datetime import datetime
@@ -11,6 +13,9 @@ from app.services.subject_service import add_subject_for_teacher
 from app.db.subjects_repo import get_subjects_by_ids
 from bson import ObjectId, errors as bson_errors
 from app.schemas.schedule import Schedule
+from app.services.attendance_alerts import send_low_attendance_for_teacher
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/settings", tags=["settings"])
 
@@ -127,6 +132,30 @@ async def patch_settings_route(
     }
 
     return serialize_bson(profile)
+
+
+# ---------- MANUAL LOW ATTENDANCE NOTICE ----------
+@router.post("/send-low-attendance-notice")
+async def manual_send_low_attendance_notice(
+    current: dict = Depends(get_current_teacher),
+):
+    """Manually trigger low attendance email notices for the current teacher."""
+    teacher = current["teacher"]
+    teacher_id = current["id"]
+
+    try:
+        emails_sent = await send_low_attendance_for_teacher(teacher_id, teacher)
+    except Exception as e:
+        logger.error(f"Manual low attendance notice failed: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to send low attendance notices",
+        )
+
+    return {
+        "message": f"Low attendance notices sent successfully. Emails sent: {emails_sent}",  # noqa: E501
+        "emails_sent": emails_sent,
+    }
 
 
 # ---------------- PUT SETTINGS ----------------

@@ -73,6 +73,7 @@ async def db(db_client):
         "app.services.attendance.db",
         "app.services.attendance_daily.db",
         "app.services.qr_service.db",
+        "app.services.attendance_alerts.db",
         "app.services.students.db",
         "app.services.subject_service.db",
         "app.db.subjects_repo.db",
