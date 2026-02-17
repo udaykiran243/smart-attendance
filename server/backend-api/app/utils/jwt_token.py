@@ -50,7 +50,9 @@ def extract_session_id(token: str) -> str | None:
         return None
 
 
-def create_access_token(user_id: str, role: str, email: str = None, session_id: str = None):
+def create_access_token(
+    user_id: str, role: str, email: str = None, session_id: str = None
+):
     """
     Create an access token with optional session ID.
     
