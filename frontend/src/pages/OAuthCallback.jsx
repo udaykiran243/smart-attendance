@@ -24,7 +24,7 @@ export default function OAuthCallback() {
     const role =
       hashParams.get("role") || queryParams.get("role") || null;
     const userId =
-      hashParams.get("userId") || queryParams.get("userId") || null;
+      hashParams.get("user_id") || queryParams.get("user_id") || null;
     const name =
       hashParams.get("name") || queryParams.get("name") || null;
 
@@ -38,11 +38,9 @@ export default function OAuthCallback() {
 
     // Save as your normal login flow does
     try {
-      // Clear existing authentication-related data before storing new session
-      // This ensures no residual auth data from previous accounts remains
-      localStorage.removeItem("token");
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("user");
+      // Clear all existing session data before storing new session
+      // This ensures no residual data from previous accounts remains
+      localStorage.clear();
 
       localStorage.setItem("token", token);
       if (refreshToken) localStorage.setItem("refresh_token", refreshToken);
