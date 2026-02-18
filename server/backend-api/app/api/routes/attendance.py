@@ -176,6 +176,9 @@ async def mark_attendance_qr(
     # 1. Push attendance record to the attendance array
     # 2. Increment present counter
     # 3. Update lastMarkedAt
+    # Note: attendanceRecords array will grow over time. For production use,
+    # consider archiving old records or using a separate collection for
+    # historical data to avoid hitting MongoDB's 16MB document size limit.
     attendance_record = {
         "date": today,
         "status": "Present",

@@ -8,9 +8,9 @@ export default function RotatingQR({ sessionId, subjectId, onClose }) {
   // Generate token (replace with backend call later)
   const generateToken = useCallback(() => {
     const qrData = {
-      subjectId: subjectId,
+      subjectId,
       date: new Date().toISOString(),
-      sessionId: sessionId,
+      sessionId,
       token: `${sessionId}-${Date.now()}`
     };
     return JSON.stringify(qrData);
