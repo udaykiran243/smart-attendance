@@ -25,6 +25,9 @@ export default function StudentList() {
   useEffect(() => {
     fetchMySubjects()
       .then(setSubjects)
+      .catch((error) => {
+        console.error("Failed to fetch subjects:", error);
+      })
       .finally(() => setSubjectsLoading(false));
   }, []);
 
