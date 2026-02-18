@@ -60,7 +60,7 @@ export default function MarkWithQR() {
                 setErrorMsg("Invalid QR code format. Please scan a valid attendance QR code.");
                 return;
             }
-        } catch (e) {
+        } catch {
             setStatus("error");
             setErrorMsg("Invalid QR code. Please scan a valid attendance QR code.");
             return;
@@ -119,7 +119,7 @@ export default function MarkWithQR() {
             if (error.response?.status === 403 && 
                 error.response?.data?.detail?.includes("New device detected")) {
                 // Store pending attendance data
-                setPendingAttendanceData({ token, lat, lng });
+                setPendingAttendanceData({ qrData, lat, lng });
                 
                 // Get user email
                 const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -141,9 +141,9 @@ export default function MarkWithQR() {
         
         // Retry attendance if we have pending data
         if (pendingAttendanceData) {
-            const { token, lat, lng } = pendingAttendanceData;
+            const { qrData, lat, lng } = pendingAttendanceData;
             setPendingAttendanceData(null);
-            await submitAttendance(token, lat, lng);
+            await submitAttendance(qrData, lat, lng);
         }
     };
 
