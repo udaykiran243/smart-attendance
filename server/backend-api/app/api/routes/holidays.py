@@ -12,9 +12,9 @@ decoupled from the teacher document. Each holiday document looks like:
     }
 
 Endpoints:
-    GET    /schedule/holidays          - Fetch all holidays for the teacher
-    POST   /schedule/holidays          - Add a new holiday
-    DELETE  /schedule/holidays/:id     - Remove a holiday by its _id
+    GET    /schedule/holidays              - Fetch all holidays for the teacher
+    POST   /schedule/holidays              - Add a new holiday
+    DELETE /schedule/holidays/{holiday_id} - Remove a holiday by its _id
 """
 
 from bson import ObjectId
