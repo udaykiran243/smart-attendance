@@ -70,16 +70,11 @@ async def mark_attendance_qr(
         if dist > radius:
             is_proxy_suspected = True
     else:
-        # No location config at all? 
-        # Using 0.0 as dummy as per prompt implies we should still calc distance?
-        # "Fetch the teacher's current session location (use dummy coordinates 0.0, 0.0 if the teacher's lat/lon isn't in the DB yet)"
-        # This implies we proceed.
-        teacher_lat = 0.0
-        teacher_lon = 0.0
-        radius = 50.0
-        dist = calculate_distance(0.0, 0.0, payload.latitude, payload.longitude)
-        if dist > radius:
-            is_proxy_suspected = True
+        # No location config at all:
+        # Do NOT default to (0.0, 0.0) for geofencing, as that would
+        # incorrectly flag all real-world locations as proxy-suspected.
+        # Instead, skip geofencing and leave is_proxy_suspected = False.
+        dist = 0.0
 
     # 3. Mark Attendance (Update Subject)
     today = date.today().isoformat()
