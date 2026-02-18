@@ -33,8 +33,8 @@ export default defineConfig({
         secure: false,
       },
       '/static': {
-        target: 'http://localhost:8000',
-        changeOrigin: false,
+        target: 'https://smart-attendance-api-i87a.onrender.com',
+        changeOrigin: true,
         secure: false,
       }
     }
