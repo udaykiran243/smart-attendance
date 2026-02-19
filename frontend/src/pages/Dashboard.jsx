@@ -192,20 +192,20 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto space-y-8">
 
         {/* --- SECTION 1: PAGE HEADER --- */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-[var(--text-main)]">{t('dashboard.title')}</h1>
-            <p className="text-[var(--text-body)] mt-1">{t('dashboard.subtitle')}</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-main)]">{t('dashboard.title')}</h1>
+            <p className="text-sm sm:text-base text-[var(--text-body)] mt-1">{t('dashboard.subtitle')}</p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <button className="px-4 py-2 bg-[var(--bg-card)] border border-[var(--border-color)] text-[var(--text-main)] rounded-lg hover:bg-[var(--bg-secondary)] font-medium transition-colors flex items-center gap-2 cursor-pointer">
-              <Download size={18} />
-              {t('dashboard.download_report')}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-[var(--bg-card)] border border-[var(--border-color)] text-[var(--text-main)] rounded-lg hover:bg-[var(--bg-secondary)] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer text-sm">
+              <Download size={16} className="sm:w-[18px] sm:h-[18px]" />
+              <span className="hidden xs:inline">{t('dashboard.download_report')}</span>
             </button>
-            <Link to="/attendance" className="px-4 py-2 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-lg hover:bg-[var(--primary-hover)] font-medium shadow-sm flex items-center gap-2 transition-colors">
-              <Play size={18} fill="currentColor" />
-              {t('dashboard.startAttendance')}
+            <Link to="/attendance" className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-lg hover:bg-[var(--primary-hover)] font-medium shadow-sm flex items-center justify-center gap-2 transition-colors text-sm">
+              <Play size={16} fill="currentColor" className="sm:w-[18px] sm:h-[18px]" />
+              <span className="hidden xs:inline">{t('dashboard.startAttendance')}</span>
             </Link>
           </div>
         </div>
@@ -266,9 +266,9 @@ export default function Dashboard() {
             </div>
 
             {/* 2.2 Stats Row (Blue Cards) */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 xs:grid-cols-3 gap-3 sm:gap-4">
               {/* Stat 1 */}
-              <div className="bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-2xl p-5 relative overflow-hidden">
+              <div className="bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-xl sm:rounded-2xl p-4 sm:p-5 relative overflow-hidden">
                 <p className="text-[var(--text-on-primary)]/80 text-sm font-medium mb-1">{t('dashboard.stats.attendance_rate')}</p>
                 <div className="flex items-end justify-between">
                   <h3 className="text-3xl font-bold">94%</h3>
@@ -277,7 +277,7 @@ export default function Dashboard() {
               </div>
 
               {/* Stat 2 */}
-              <div className="bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-2xl p-5">
+              <div className="bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-xl sm:rounded-2xl p-4 sm:p-5">
                 <p className="text-[var(--text-on-primary)]/80 text-sm font-medium mb-1">{t('dashboard.stats.absent')}</p>
                 <div className="flex items-end justify-between">
                   <h3 className="text-3xl font-bold">7</h3>
@@ -286,7 +286,7 @@ export default function Dashboard() {
               </div>
 
               {/* Stat 3 */}
-              <div className="bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-2xl p-5">
+              <div className="bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-xl sm:rounded-2xl p-4 sm:p-5">
                 <p className="text-[var(--text-on-primary)]/80 text-sm font-medium mb-1">{t('dashboard.stats.late_arrivals')}</p>
                 <div className="flex items-end justify-between">
                   <h3 className="text-3xl font-bold">3</h3>
@@ -296,21 +296,21 @@ export default function Dashboard() {
             </div>
 
             {/* 2.3 Quick Actions Row (Light Gray Cards) */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4 sm:mt-6">
               <Link to="/students" className="block">
-                <div className="bg-[var(--bg-secondary)] p-5 rounded-2xl cursor-pointer hover:opacity-90 transition">
+                <div className="bg-[var(--bg-secondary)] p-4 sm:p-5 rounded-xl sm:rounded-2xl cursor-pointer hover:opacity-90 transition">
                   <div className="font-semibold text-[var(--text-main)] mb-1">{t('dashboard.quick_actions.view_students')}</div>
                   <div className="text-xs text-[var(--text-body)]">{t('dashboard.quick_actions.view_students_desc')}</div>
                 </div>
               </Link>
               <Link to="/attendance" className="block">
-                <div className="bg-[var(--bg-secondary)] p-5 rounded-2xl cursor-pointer hover:opacity-90 transition">
+                <div className="bg-[var(--bg-secondary)] p-4 sm:p-5 rounded-xl sm:rounded-2xl cursor-pointer hover:opacity-90 transition">
                   <div className="font-semibold text-[var(--text-main)] mb-1">{t('dashboard.quick_actions.go_to_attendance')}</div>
                   <div className="text-xs text-[var(--text-body)]">{t('dashboard.quick_actions.go_to_attendance_desc')}</div>
                 </div>
               </Link>
               <Link to="/" className="block">
-                <div className="bg-[var(--bg-secondary)] p-5 rounded-2xl cursor-pointer hover:opacity-90 transition">
+                <div className="bg-[var(--bg-secondary)] p-4 sm:p-5 rounded-xl sm:rounded-2xl cursor-pointer hover:opacity-90 transition">
                   <div className="font-semibold text-[var(--text-main)] mb-1">{t('dashboard.quick_actions.manage_schedule')}</div>
                   <div className="text-xs text-[var(--text-body)]">{t('dashboard.quick_actions.manage_schedule_desc')}</div>
                 </div>

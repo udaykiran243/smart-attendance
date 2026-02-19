@@ -514,35 +514,38 @@ export default function ManageSchedule() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
-          <div className="xl:col-span-8 space-y-6">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 lg:gap-8">
+          <div className="xl:col-span-8 space-y-4 lg:space-y-6">
             {/* CONTROLS */}
-            <div className="flex justify-between items-center">
-              <div className="inline-flex bg-[var(--bg-card)] border border-[var(--border-color)] p-1 rounded-full">
-                {days.map((day) => (
-                  <button
-                    key={day}
-                    onClick={() => setActiveDay(day)}
-                    className={`px-5 py-1.5 rounded-full text-sm font-medium transition-all ${
-                      activeDay === day
-                        ? "bg-[var(--primary)] text-[var(--text-on-primary)]"
-                        : "text-[var(--text-body)]"
-                    }`}
-                  >
-                    {day}
-                  </button>
-                ))}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              {/* Day selector - horizontal scroll on mobile */}
+              <div className="w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 -mx-2 px-2 sm:mx-0 sm:px-0">
+                <div className="inline-flex bg-[var(--bg-card)] border border-[var(--border-color)] p-1 rounded-full min-w-max">
+                  {days.map((day) => (
+                    <button
+                      key={day}
+                      onClick={() => setActiveDay(day)}
+                      className={`px-4 sm:px-5 py-1.5 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                        activeDay === day
+                          ? "bg-[var(--primary)] text-[var(--text-on-primary)]"
+                          : "text-[var(--text-body)]"
+                      }`}
+                    >
+                      {day}
+                    </button>
+                  ))}
+                </div>
               </div>
               <button
                 onClick={handleAddClass}
-                className="flex items-center gap-2 bg-[var(--primary)] text-[var(--text-on-primary)] px-4 py-2 rounded-lg text-sm font-medium"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[var(--primary)] text-[var(--text-on-primary)] px-4 py-2 rounded-lg text-sm font-medium"
               >
                 <Plus size={16} /> {t('manage_schedule.add_class', "Add class")}
               </button>
             </div>
 
             {/* --- DYNAMIC CLASSES GRID --- */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {filteredClasses.map((cls) => (
                 <div
                   key={cls.id}
@@ -600,9 +603,9 @@ export default function ManageSchedule() {
           </div>
 
           {/* RIGHT SECTION: CALENDAR OVERVIEW */}
-          <div className="xl:col-span-4 space-y-6">
+          <div className="xl:col-span-4 space-y-4 lg:space-y-6">
             {/* Calendar Card */}
-            <div className="bg-[var(--bg-card)] p-6 rounded-2xl border border-[var(--border-color)] shadow-sm">
+            <div className="bg-[var(--bg-card)] p-4 sm:p-6 rounded-2xl border border-[var(--border-color)] shadow-sm">
               <div className="mb-6">
                 <h3 className="text-lg font-bold text-[var(--text-main)]">
                   {t('manage_schedule.calendar_overview', "Calendar overview")}
@@ -682,7 +685,7 @@ export default function ManageSchedule() {
               </div>
 
               {/* CALENDAR GRID */}
-              <div className="grid grid-cols-7 gap-y-4 gap-x-2 text-center text-sm mb-2">
+              <div className="grid grid-cols-7 gap-y-3 sm:gap-y-4 gap-x-1 sm:gap-x-2 text-center text-xs sm:text-sm mb-2">
                 {[
                   t('days.short.sun', "Sun"), 
                   t('days.short.mon', "Mon"), 
@@ -695,14 +698,14 @@ export default function ManageSchedule() {
                   <span key={d} className="text-xs font-medium text-[var(--text-body)]">{d}</span>
                 ))}
               </div>
-              <div className="grid grid-cols-7 gap-2 text-sm">
+              <div className="grid grid-cols-7 gap-1 sm:gap-2 text-xs sm:text-sm">
                 {getCalendarDays().map((day, idx) => {
                   if(!day) return <div key={idx} className="h-8 w-8"/>;
                   const today = new Date();
                   const isToday = day === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear();
                   return (
                     <div key={idx} className="flex justify-center">
-                      <span className={`h-8 w-8 flex items-center justify-center rounded-lg transition cursor-pointer ${isToday ? "bg-[var(--primary)] text-[var(--text-on-primary)] font-bold shadow-md" : "text-[var(--text-main)] hover:bg-[var(--bg-secondary)]"}`}>
+                      <span className={`h-7 w-7 sm:h-8 sm:w-8 flex items-center justify-center rounded-lg transition cursor-pointer text-xs sm:text-sm ${isToday ? "bg-[var(--primary)] text-[var(--text-on-primary)] font-bold shadow-md" : "text-[var(--text-main)] hover:bg-[var(--bg-secondary)]"}`}>
                         {day}
                       </span>
                     </div>

@@ -180,12 +180,12 @@ export default function Analytics() {
             <h2 className="text-2xl font-bold text-[var(--text-main)]">{t('analytics.title')}</h2>
             <p className="text-[var(--text-body)]">{t('analytics.subtitle')}</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             {/* Subject Selector Dropdown */}
             <select
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
-              className="px-4 py-2 bg-[var(--bg-card)] text-[var(--text-main)] border border-[var(--border-color)] rounded-lg hover:bg-[var(--bg-secondary)] font-medium shadow-sm transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
+              className="w-full sm:w-auto px-4 py-2 bg-[var(--bg-card)] text-[var(--text-main)] border border-[var(--border-color)] rounded-lg hover:bg-[var(--bg-secondary)] font-medium shadow-sm transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
             >
               <option value="all">All Subjects</option>
               {subjects.map((subject) => (
@@ -195,14 +195,16 @@ export default function Analytics() {
               ))}
             </select>
 
-            <button className="px-4 py-2 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-lg hover:bg-[var(--primary-hover)] font-medium flex items-center gap-2 shadow-sm transition cursor-pointer">
-              <Download size={18} />
-              {t('analytics.export')}
-            </button>
-            <button className="px-4 py-2 bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-lg hover:bg-[var(--action-info-hover)] font-medium flex items-center gap-2 shadow-sm transition cursor-pointer">
-              <FileText size={18} />
-              {t('analytics.generate_report')}
-            </button>
+            <div className="flex gap-2 sm:gap-3">
+              <button className="flex-1 sm:flex-none px-4 py-2 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-lg hover:bg-[var(--primary-hover)] font-medium flex items-center justify-center gap-2 shadow-sm transition cursor-pointer text-sm sm:text-base">
+                <Download size={18} />
+                <span className="hidden xs:inline">{t('analytics.export')}</span>
+              </button>
+              <button className="flex-1 sm:flex-none px-4 py-2 bg-[var(--action-info-bg)] text-[var(--text-on-primary)] rounded-lg hover:bg-[var(--action-info-hover)] font-medium flex items-center justify-center gap-2 shadow-sm transition cursor-pointer text-sm sm:text-base">
+                <FileText size={18} />
+                <span className="hidden xs:inline">{t('analytics.generate_report')}</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -253,9 +255,9 @@ export default function Analytics() {
         </div>
 
         {/* --- MIDDLE SECTION: CHARTS --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Main Trend Chart (Left - 2 Cols) */}
-          <div className="lg:col-span-2 bg-[var(--bg-card)] p-6 rounded-xl border border-[var(--border-color)] shadow-sm">
+          <div className="lg:col-span-2 bg-[var(--bg-card)] p-4 sm:p-6 rounded-xl border border-[var(--border-color)] shadow-sm">
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h3 className="font-bold text-lg text-[var(--text-main)]">{t('analytics.chart.trend_title')}</h3>
@@ -297,9 +299,9 @@ export default function Analytics() {
               </div>
               {/* --- END DROPDOWN SECTION --- */}
             </div>
-            <div className="h-[300px] w-full">
+            <div className="h-[250px] sm:h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={TREND_DATA}>
+                <AreaChart data={TREND_DATA} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
                   <defs>
                     <linearGradient id="colorPresent" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.1}/>
@@ -318,12 +320,12 @@ export default function Analytics() {
             </div>
           </div>
           {/* Side Panel (Right - 1 Col) */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Donut Chart */}
-            <div className="bg-[var(--bg-card)] p-6 rounded-xl border border-[var(--border-color)] shadow-sm">
+            <div className="bg-[var(--bg-card)] p-4 sm:p-6 rounded-xl border border-[var(--border-color)] shadow-sm">
               <h3 className="font-bold text-[var(--text-main)] mb-1">{t('analytics.donut.title')}</h3>
               <p className="text-xs text-[var(--text-body)] mb-4">{t('analytics.donut.subtitle')}</p>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col xs:flex-row items-center justify-between gap-4">
                 <div className="h-32 w-32 relative">
                   <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                     <span className="text-xl font-bold text-[var(--text-main)]">89%</span>
@@ -360,7 +362,7 @@ export default function Analytics() {
               </div>
             </div>
             {/* Best Performing List */}
-            <div className="bg-[var(--bg-card)] p-5 rounded-xl border border-[var(--border-color)] shadow-sm" data-testid="best-performing-list">
+            <div className="bg-[var(--bg-card)] p-4 sm:p-5 rounded-xl border border-[var(--border-color)] shadow-sm" data-testid="best-performing-list">
               <h3 className="font-semibold text-sm text-[var(--text-main)] mb-3">{t('analytics.lists.best')}</h3>
               <div className="space-y-3">
                 {bestPerforming.map((c, i) => (
@@ -375,7 +377,7 @@ export default function Analytics() {
               </div>
             </div>
              {/* Needs Support List */}
-             <div className="bg-[var(--bg-card)] p-5 rounded-xl border border-[var(--border-color)] shadow-sm" data-testid="needing-support-list">
+             <div className="bg-[var(--bg-card)] p-4 sm:p-5 rounded-xl border border-[var(--border-color)] shadow-sm" data-testid="needing-support-list">
               <h3 className="font-semibold text-sm text-[var(--text-main)] mb-3">{t('analytics.lists.needs_support')}</h3>
               <div className="space-y-3">
                 {needingSupport.map((c, i) => (
@@ -393,10 +395,10 @@ export default function Analytics() {
         </div>
 
         {/* --- BOTTOM SECTION: CLASS BREAKDOWN --- */}
-        <div className="bg-[var(--bg-card)] p-6 rounded-xl border border-[var(--border-color)] shadow-sm">
+        <div className="bg-[var(--bg-card)] p-4 sm:p-6 rounded-xl border border-[var(--border-color)] shadow-sm overflow-hidden">
           <h3 className="font-bold text-lg text-[var(--text-main)] mb-1">{t('analytics.breakdown.title')}</h3>
           <p className="text-sm text-[var(--text-body)] mb-6">{t('analytics.breakdown.subtitle')}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {CLASS_BREAKDOWN.map((cls, idx) => (
               <div key={idx} className="p-4 bg-[var(--bg-secondary)] rounded-xl border border-[var(--border-color)]">
                 <div className="flex justify-between items-center mb-3">
