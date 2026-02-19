@@ -112,9 +112,9 @@ def test_notification_component_exists():
     """Test that the NotificationDropdown component exists."""
     from pathlib import Path
 
-    component_path = Path(
-        "c:/Users/Rushabh Mahajan/Documents/VS Code/smart-attendance/"
-        "frontend/src/components/NotificationDropdown.jsx"
+    project_root = Path(__file__).parent.parent.parent.parent
+    component_path = (
+        project_root / "frontend" / "src" / "components" / "NotificationDropdown.jsx"
     )
 
     assert component_path.exists(), "NotificationDropdown.jsx component not found"
@@ -132,10 +132,8 @@ def test_notification_api_functions():
     """Test that notification API functions are defined."""
     from pathlib import Path
 
-    api_path = Path(
-        "c:/Users/Rushabh Mahajan/Documents/VS Code/smart-attendance/"
-        "frontend/src/api/notifications.js"
-    )
+    project_root = Path(__file__).parent.parent.parent.parent
+    api_path = project_root / "frontend" / "src" / "api" / "notifications.js"
 
     with open(api_path, "r") as f:
         content = f.read()
@@ -150,10 +148,8 @@ def test_header_updated():
     """Test that Header.jsx imports NotificationDropdown."""
     from pathlib import Path
 
-    header_path = Path(
-        "c:/Users/Rushabh Mahajan/Documents/VS Code/smart-attendance/"
-        "frontend/src/components/Header.jsx"
-    )
+    project_root = Path(__file__).parent.parent.parent.parent
+    header_path = project_root / "frontend" / "src" / "components" / "Header.jsx"
 
     with open(header_path, "r") as f:
         content = f.read()
