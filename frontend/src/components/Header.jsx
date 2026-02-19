@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Bell, User, ChevronDown, Menu, X, Sun, Moon } from "lucide-react";
+import { User, ChevronDown, Menu, X, Sun, Moon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../theme/ThemeContext";
+import NotificationDropdown from "./NotificationDropdown";
 
 /** Navigation link definitions for the main header. */
 const navLinks = [
@@ -51,6 +52,9 @@ export default function Header() {
           <button
             onClick={() => setMenuOpen((v) => !v)}
             className="lg:hidden p-2 rounded-lg text-[var(--text-body)] hover:bg-[var(--bg-secondary)]"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -83,31 +87,34 @@ export default function Header() {
         {/* Right */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Language - Hidden on very small screens */}
-          <div className="hidden xs:flex items-center gap-1 sm:gap-2 mr-1 sm:mr-2">
+          <div className="hidden xs:flex items-center gap-1 sm:gap-2 mr-1 sm:mr-2" role="group" aria-label="Language selection">
             <button
               onClick={() => i18n.changeLanguage("en")}
               className={`text-xs sm:text-sm ${i18n.language === "en" ? "font-bold text-[var(--primary)]" : "text-[var(--text-body)]"}`}
+              aria-label="Switch to English"
+              aria-pressed={i18n.language === "en"}
             >
               EN
             </button>
-            <span className="text-[var(--border-color)]">/</span>
+            <span className="text-[var(--border-color)]" aria-hidden="true">/</span>
             <button
               onClick={() => i18n.changeLanguage("hi")}
               className={`text-xs sm:text-sm ${i18n.language === "hi" ? "font-bold text-[var(--primary)]" : "text-[var(--text-body)]"}`}
+              aria-label="Switch to Hindi"
+              aria-pressed={i18n.language === "hi"}
             >
               हि
             </button>
           </div>
 
-          {/* Notification */}
-          <button disabled className="bg-[var(--primary)] p-1 sm:p-1.5 rounded-full opacity-60">
-            <Bell size={14} className="text-[var(--text-on-primary)] sm:w-4 sm:h-4" />
-          </button>
+          {/* Notification Dropdown */}
+          <NotificationDropdown />
 
           {/* Theme Toggle */}
           <button
             onClick={() => toggle(isDark ? "Light" : "Dark")}
             className="p-1.5 sm:p-2 rounded-full hover:bg-[var(--bg-secondary)]"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
             {isDark ? <Sun size={16} className="text-slate-400 sm:w-[18px] sm:h-[18px]" /> : <Moon size={16} className="text-slate-400 sm:w-[18px] sm:h-[18px]" />}
           </button>
@@ -126,7 +133,12 @@ export default function Header() {
 
       {/* Mobile nav */}
       {menuOpen && (
-        <nav className="lg:hidden bg-[var(--bg-card)] px-4 pb-4 pt-2 space-y-1 border-t border-[var(--border-color)]">
+        <nav 
+          id="mobile-menu"
+          className="lg:hidden bg-[var(--bg-card)] px-4 pb-4 pt-2 space-y-1 border-t border-[var(--border-color)]"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
           {navLinks.map((link) => (
             <Link
               key={link.to}
