@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import RotatingQR from "./RotatingQR";
+// import RotatingQR from "./RotatingQR";
+import LiveAttendanceModal from "./LiveAttendanceModal";
 import { X } from "lucide-react";
 import PropTypes from 'prop-types';
 
@@ -7,6 +8,16 @@ export default function StartAttendanceModal({ sessionId, subjectId, onClose }) 
   const [showQR, setShowQR] = useState(false);
   // Use the provided sessionId or generate a fallback (using useState to ensure purity)
   const [actualSessionId] = useState(() => sessionId || "session-" + Date.now());
+
+  if (showQR) {
+    return (
+      <LiveAttendanceModal 
+        sessionId={actualSessionId} 
+        subjectId={subjectId} 
+        onClose={onClose} 
+      />
+    );
+  }
 
   return (
     <div className="fixed inset-0 bg-[var(--overlay)] flex items-center justify-center z-50 backdrop-blur-sm">
@@ -20,28 +31,18 @@ export default function StartAttendanceModal({ sessionId, subjectId, onClose }) 
 
         <h2 className="text-xl font-bold mb-4 text-[var(--text-main)]">Start Attendance</h2>
 
-        {!showQR ? (
-          <div className="flex flex-col gap-4">
-            <p className="text-[var(--text-body)]">
-              Click below to generate a rotating QR code for students to scan.
-              This code refreshes every 5 seconds to prevent sharing.
-            </p>
-            <button
-              onClick={() => setShowQR(true)}
-              className="w-full py-3 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-xl hover:bg-[var(--primary-hover)] transition font-medium shadow-md cursor-pointer flex justify-center items-center"
-            >
-              Generate QR
-            </button>
-          </div>
-        ) : (
-          <div className="flex justify-center">
-            <RotatingQR
-              sessionId={actualSessionId}
-              subjectId={subjectId}
-              onClose={onClose}
-            />
-          </div>
-        )}
+        <div className="flex flex-col gap-4">
+          <p className="text-[var(--text-body)]">
+            Click below to generate a rotating QR code for students to scan.
+            This code refreshes every 5 seconds to prevent sharing.
+          </p>
+          <button
+            onClick={() => setShowQR(true)}
+            className="w-full py-3 bg-[var(--primary)] text-[var(--text-on-primary)] rounded-xl hover:bg-[var(--primary-hover)] transition font-medium shadow-md cursor-pointer flex justify-center items-center"
+          >
+            Generate QR
+          </button>
+        </div>
       </div>
     </div>
   );

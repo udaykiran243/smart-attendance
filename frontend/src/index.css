@@ -6,6 +6,9 @@
 @theme {
   /* Add xs breakpoint for extra small screens (480px) */
   --breakpoint-xs: 480px;
+  
+  /* Custom animations */
+  --animate-spin-slow: spin 3s linear infinite;
 }
 
 /* Accessibility: Skip Link */

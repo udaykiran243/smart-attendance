@@ -287,6 +287,7 @@
   "mark_attendance": {
     "title": "उपस्थिति सत्र शुरू करें",
     "subtitle": "वास्तविक समय में छात्रों की उपस्थिति दर्ज करने के लिए चेहरा पहचान का उपयोग करें",
+    "start_qr_session": "QR सत्र शुरू करें",
     "session_settings": "सत्र सेटिंग्स",
     "class_label": "कक्षा",
     "select_subject": "विषय चुनें",

@@ -272,6 +272,7 @@
   "mark_attendance": {
     "title": "Start attendance session",
     "subtitle": "Use face recognition to mark students present in real-time",
+    "start_qr_session": "Start QR Session",
     "session_settings": "Session settings",
     "class_label": "Class",
     "select_subject": "Select subject",

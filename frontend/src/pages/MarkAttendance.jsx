@@ -259,7 +259,7 @@ export default function MarkAttendance() {
               }`}
             >
               <QrCode size={16} />
-              <span>{t('mark_attendance.start_qr_session') || 'Start QR Session'}</span>
+              <span>{t('mark_attendance.start_qr_session')}</span>
             </button>
             <button
                onClick={() => navigate("/settings")}
