@@ -462,7 +462,7 @@ const goToPage = (page) => {
         disabled={currentPage === 1}
         className="px-3 py-1 rounded-md border border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Prev
+        {t('reports.pagination.previous')}
       </button>
 
       <span className="text-xs text-[var(--text-body)]">
