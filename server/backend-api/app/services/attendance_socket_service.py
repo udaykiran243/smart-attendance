@@ -2,7 +2,7 @@
 import logging
 from typing import Dict, List, Any
 import socketio
-from datetime import datetime
+from datetime import datetime, date, UTC
 from app.utils.geo import calculate_distance
 from app.db.mongo import db
 from bson import ObjectId
@@ -24,7 +24,6 @@ active_sessions: Dict[str, List[Dict[str, Any]]] = {}
 session_locations: Dict[str, Dict[str, Any]] = {}
 
 from pymongo import UpdateOne
-from datetime import datetime, date
 
 @sio.event
 async def connect(sid, environ):
@@ -218,6 +217,7 @@ async def flush_attendance_data():
                     "subject_id": ObjectId(subject_id),
                     "date": today_str,
                     "timestamp": scan["timestamp"],
+                    "createdAt": datetime.now(UTC),
                     "session_id": session_id,
                     "latitude": scan["location"]["lat"],
                     "longitude": scan["location"]["lon"],
@@ -240,6 +240,7 @@ async def flush_attendance_data():
                         "subject_id": ObjectId(subject_id),
                         "date": today_str,
                         "timestamp": scan["timestamp"],
+                        "createdAt": datetime.now(UTC),
                         "session_id": session_id,
                         "latitude": scan["location"]["lat"],
                         "longitude": scan["location"]["lon"],
@@ -325,6 +326,7 @@ async def stop_and_save_session(session_id: str):
                             "subject_id": ObjectId(subject_id),
                             "date": today_str,
                             "timestamp": scan["timestamp"],
+                            "createdAt": datetime.now(UTC),
                             "session_id": session_id,
                             "latitude": scan["location"]["lat"],
                             "longitude": scan["location"]["lon"],
