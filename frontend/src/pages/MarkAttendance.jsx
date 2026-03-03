@@ -319,13 +319,21 @@ export default function MarkAttendance() {
     // Frame processing loop
     const interval = setInterval(() => {
       if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-        const imageSrc = webcamRef.current.getScreenshot();
-        if (imageSrc) {
+        const imageSrc = webcamRef.current?.getScreenshot();
+        
+        // Ensure proper IDs are available
+        const subjectId = selectedSubject?._id || selectedSubject?.id;
+        
+        if (imageSrc && subjectId) {
             wsRef.current.send(JSON.stringify({
                 command: 'process_frame',
                 image: imageSrc,
-                subject_id: selectedSubject._id
+                subject_id: subjectId
             }));
+        } else {
+             // Debug log if missing data (optional)
+             if (!imageSrc) console.debug("Skipping frame: No image captured");
+             if (!subjectId) console.debug("Skipping frame: No subject ID");
         }
       }
     }, 2000); // 2 seconds interval
