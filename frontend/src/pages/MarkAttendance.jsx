@@ -118,6 +118,9 @@ export default function MarkAttendance() {
     !navigator.geolocation ? "Geolocation is not supported by your browser" : null
   );
   const currentCoordsRef = useRef(null);
+  
+  // WebSocket Reference
+  const wsRef = useRef(null);
 
   useEffect(() => {
     if (!navigator.geolocation) return;
@@ -229,12 +232,101 @@ export default function MarkAttendance() {
   useEffect(() => {
     if (!selectedSubject || !webcamRef.current) return;
 
-    const interval = setInterval(() => {
-      captureAndSend(webcamRef, selectedSubject, setDetections, currentCoordsRef.current);
-    }, 3000);
+    // Generate session ID
+    if (!sessionId) {
+      setSessionId(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+    }
+    
+    // Connect WebSocket
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    // Use configured API URL or infer from window.location
+    // Note: api.defaults.baseURL is usually /api
+    // We construct full URL manually to include token
+    const token = localStorage.getItem("token");
+    if (!token) return;
 
-    return () => clearInterval(interval);
-  }, [selectedSubject]);
+    // Assuming standard /api prefix for proxy
+    const wsUrl = `${protocol}//${window.location.host}/api/attendance/ws/${sessionId || 'temp'}?token=${token}`;
+    
+    console.log("Connecting WS:", wsUrl);
+    wsRef.current = new WebSocket(wsUrl);
+
+    wsRef.current.onopen = () => {
+      console.log("WS Connected");
+      toast.success(t('mark_attendance.alerts.online_restored') || "Connected to Real-time Service");
+    };
+
+    wsRef.current.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        
+        if (data.status === 'detected') {
+          // Clear old detections for new frame
+          setDetections([]);
+        } 
+        else if (data.status === 'match_update') {
+          const { match } = data;
+          
+          // Add to detections for overlay
+          if (match) {
+            setDetections(prev => [...prev, match]);
+            
+            // Update attendance if student matched
+            if (match.student && match.status !== "spoof") {
+              const studentId = match.student._id || match.student.id;
+              
+              setAttendanceMap(prev => {
+                if (!prev[studentId]) return prev;
+                // Only update if not already present or if we want to track count
+                return {
+                  ...prev,
+                  [studentId]: {
+                    ...prev[studentId],
+                    status: 'present',
+                    count: (prev[studentId].count || 0) + 1,
+                    lastSeen: new Date().toISOString()
+                  }
+                };
+              });
+            }
+          }
+        }
+        else if (data.status === 'error') {
+          console.error("WS Error:", data.message);
+        }
+      } catch (e) {
+        console.error("WS Parse Error:", e);
+      }
+    };
+    
+    wsRef.current.onerror = (e) => {
+      console.error("WS Error:", e);
+      // Fallback to HTTP polling if WS fails?
+      // For now, just log.
+    };
+    
+    // Frame processing loop
+    const interval = setInterval(() => {
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+        const imageSrc = webcamRef.current.getScreenshot();
+        if (imageSrc) {
+            wsRef.current.send(JSON.stringify({
+                command: 'process_frame',
+                image: imageSrc,
+                subject_id: selectedSubject._id
+            }));
+        }
+      }
+    }, 2000); // 2 seconds interval
+
+    return () => {
+      clearInterval(interval);
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+    };
+  }, [selectedSubject, sessionId, t]); // Added sessionId dependency
+
 
   const presentStudents = Object.values(attendanceMap)
     .filter((s) => s.status === "present")

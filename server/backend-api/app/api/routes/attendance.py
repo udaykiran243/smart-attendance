@@ -1,11 +1,12 @@
 import base64
 import logging
-from datetime import date
-from typing import Dict
+from datetime import date, datetime, timezone
+from typing import Dict, List, Optional
+import json
 
 from bson import ObjectId
 from bson import errors as bson_errors
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, WebSocket, WebSocketDisconnect
 
 from geopy.distance import geodesic
 from app.core.config import ML_CONFIDENT_THRESHOLD, ML_UNCERTAIN_THRESHOLD
@@ -804,3 +805,208 @@ async def confirm_attendance(payload: AttendanceConfirm):
         "present_updated": len(present_set),
         "absent_updated": len(absent_set),
     }
+
+
+@router.websocket("/ws/session/{session_id}")
+async def attendance_session_ws(websocket: WebSocket, session_id: str):
+    """
+    Real-time attendance marking via WebSocket.
+    Streams incremental match results as faces are processed.
+    """
+    # Authenticate via query param token
+    token = websocket.query_params.get("token")
+    if not token:
+        await websocket.close(code=1008, reason="Missing token")
+        return
+
+    try:
+        decoded = decode_jwt(token)
+        user_id = decoded.get("user_id")
+        role = decoded.get("role")
+        if not user_id or role not in ["teacher", "admin"]:
+            await websocket.close(code=1008, reason="Unauthorized")
+            return
+    except Exception:
+        await websocket.close(code=1008, reason="Invalid token")
+        return
+
+    await websocket.accept()
+
+    try:
+        while True:
+            data = await websocket.receive_json()
+            command = data.get("command")
+
+            if command == "process_frame":
+                image_b64 = data.get("image")
+                subject_id = data.get("subject_id")
+
+                if not image_b64 or not subject_id:
+                    await websocket.send_json(
+                        {"status": "error", "message": "Missing image or subject_id"}
+                    )
+                    continue
+
+                if "," in image_b64:
+                    _, image_b64 = image_b64.split(",", 1)
+
+                await websocket.send_json(
+                    {"status": "processing", "message": "Detecting faces..."}
+                )
+
+                # 1. Detect Faces
+                try:
+                    ml_response = await ml_client.detect_faces(
+                        image_base64=image_b64,
+                        min_face_area_ratio=0.01,
+                        num_jitters=3,
+                        model="hog",
+                    )
+
+                    if not ml_response.get("success"):
+                        await websocket.send_json(
+                            {
+                                "status": "error",
+                                "message": f"ML Error: {ml_response.get('error')}",
+                            }
+                        )
+                        continue
+
+                    detected_faces = ml_response.get("faces", [])
+                    face_count = len(detected_faces)
+
+                    await websocket.send_json(
+                        {"status": "detected", "count": face_count}
+                    )
+
+                    if face_count == 0:
+                        await websocket.send_json({"status": "complete", "results": []})
+                        continue
+
+                    # 2. Load Candidates
+                    subject = await db.subjects.find_one(
+                        {"_id": ObjectId(subject_id)}, {"students": 1}
+                    )
+                    if not subject:
+                        await websocket.send_json(
+                            {"status": "error", "message": "Subject not found"}
+                        )
+                        continue
+
+                    student_user_ids = [
+                        s["student_id"]
+                        for s in subject.get("students", [])
+                        if s.get("verified", False)
+                    ]
+
+                    cursor = db.students.find(
+                        {
+                            "userId": {"$in": student_user_ids},
+                            "verified": True,
+                            "face_embeddings": {"$exists": True, "$ne": []},
+                        }
+                    )
+                    students = await cursor.to_list(length=500)
+
+                    candidate_embeddings = []
+                    for s in students:
+                        candidate_embeddings.append(
+                            {
+                                "student_id": str(s["userId"]),
+                                "embeddings": s["face_embeddings"],
+                            }
+                        )
+
+                    # 3. Match incrementally
+                    results = []
+
+                    for i, face in enumerate(detected_faces):
+                        # Match ONE face against all candidates
+                        try:
+                            match_response = await ml_client.batch_match(
+                                detected_faces=[{"embedding": face["embedding"]}],
+                                candidate_embeddings=candidate_embeddings,
+                                confident_threshold=ML_CONFIDENT_THRESHOLD,
+                                uncertain_threshold=ML_UNCERTAIN_THRESHOLD,
+                            )
+                        except Exception as e:
+                            logger.error(f"Match error for face {i}: {e}")
+                            match_response = {}
+
+                        matches = match_response.get("matches", [])
+                        best_match = matches[0] if matches else {}
+                        matched_sid = best_match.get("student_id")
+                        distance = best_match.get("distance", 1.0)
+                        
+                        # Determine status
+                        status = "unknown"
+                        if distance < ML_CONFIDENT_THRESHOLD:
+                             status = "present"
+                        elif distance < ML_UNCERTAIN_THRESHOLD:
+                             status = "uncertain"
+
+                        # Liveness check
+                        is_live = face.get("is_live", True)
+                        if not is_live:
+                            status = "spoof"
+
+                        student_info = None
+                        if matched_sid:
+                            student_obj = next(
+                                (
+                                    s
+                                    for s in students
+                                    if str(s["userId"]) == matched_sid
+                                ),
+                                None,
+                            )
+                            if student_obj:
+                                student_info = {
+                                    "id": str(student_obj["userId"]),
+                                    "name": student_obj["name"],
+                                    "roll_number": student_obj.get("roll_number", ""),
+                                    "_id": str(student_obj["_id"]),
+                                }
+
+                        result_item = {
+                            "face_index": i,
+                            "status": status,
+                            "distance": distance,
+                            "student": student_info,
+                            "location": face.get("location"),
+                        }
+                        results.append(result_item)
+
+                        # Stream this result immediately
+                        await websocket.send_json(
+                            {
+                                "status": "match_update",
+                                "match": result_item,
+                                "progress": f"{i + 1}/{face_count}",
+                            }
+                        )
+
+                    # Final complete message
+                    await websocket.send_json(
+                        {
+                            "status": "complete",
+                            "count": len(results),
+                            "results": results,
+                        }
+                    )
+
+                except Exception as e:
+                    logger.error(f"WS Error processing frame: {e}")
+                    await websocket.send_json(
+                        {"status": "error", "message": f"Processing failed: {str(e)}"}
+                    )
+
+    except WebSocketDisconnect:
+        logger.info(f"WebSocket disconnected for session {session_id}")
+    except Exception as e:
+        logger.error(f"WebSocket error: {e}")
+        # Only close if not already closed/disconnected
+        try:
+             await websocket.close(code=1011)
+        except Exception:
+             pass
