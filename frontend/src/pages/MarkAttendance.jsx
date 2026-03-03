@@ -238,15 +238,26 @@ export default function MarkAttendance() {
     }
     
     // Connect WebSocket
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    // Use configured API URL or infer from window.location
-    // Note: api.defaults.baseURL is usually /api
-    // We construct full URL manually to include token
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    // Assuming standard /api prefix for proxy
-    const wsUrl = `${protocol}//${window.location.host}/api/attendance/ws/${sessionId || 'temp'}?token=${token}`;
+    // Use environment variable for backend URL, fallback to window location
+    const apiUrl = import.meta.env.VITE_API_URL || "";
+    let wsBaseUrl = "";
+
+    if (apiUrl.startsWith("http")) {
+      wsBaseUrl = apiUrl.replace(/^http/, "ws");
+    } else if (apiUrl.startsWith("/")) {
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      wsBaseUrl = `${protocol}//${window.location.host}${apiUrl}`;
+    } else {
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      wsBaseUrl = `${protocol}//${window.location.host}/api`;
+    }
+
+    // Construct WebSocket URL
+    // Endpoint: /attendance/ws/session/{session_id}
+    const wsUrl = `${wsBaseUrl}/attendance/ws/session/${sessionId || 'temp'}?token=${token}`;
     
     console.log("Connecting WS:", wsUrl);
     wsRef.current = new WebSocket(wsUrl);
